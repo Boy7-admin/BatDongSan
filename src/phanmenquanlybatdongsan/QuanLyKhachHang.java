@@ -5,12 +5,27 @@
  */
 package phanmenquanlybatdongsan;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
  */
 public class QuanLyKhachHang extends javax.swing.JInternalFrame {
-
+    Connection con;
+    String hosting = "jdbc:sqlserver://localhost\\DESKTOP-81VHF3A\\SQLEXPRESS:1433;databaseName=QL_BDS";
+    String username = "sa";
+    String password = "12345";
+    int index;
+    
+    
     /**
      * Creates new form QuanLyKhachHang
      */
@@ -95,6 +110,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             }
         ));
         tbl_Khachhang.setRowHeight(30);
+        tbl_Khachhang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_KhachhangMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_Khachhang);
 
         rdoNam_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -124,6 +144,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         btnThem_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnThem_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         btnThem_Khachhang.setText("Thêm");
+        btnThem_Khachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem_KhachhangActionPerformed(evt);
+            }
+        });
 
         btnXoa_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnXoa_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
@@ -132,6 +157,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         btnMoi_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnMoi_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
         btnMoi_Khachhang.setText("Mới");
+        btnMoi_Khachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoi_KhachhangActionPerformed(evt);
+            }
+        });
 
         btnSua_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnSua_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
@@ -257,6 +287,203 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         System.exit(0);
     }//GEN-LAST:event_btnThoat_KhachhangActionPerformed
 
+    private void btnThem_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_KhachhangActionPerformed
+        // TODO add your handling code here:
+        them();
+    }//GEN-LAST:event_btnThem_KhachhangActionPerformed
+
+    private void btnMoi_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_KhachhangActionPerformed
+        // TODO add your handling code here:
+        moi();
+    }//GEN-LAST:event_btnMoi_KhachhangActionPerformed
+
+    private void tbl_KhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_KhachhangMouseClicked
+        // TODO add your handling code here:
+        showDetail();
+    }//GEN-LAST:event_tbl_KhachhangMouseClicked
+
+    DefaultTableModel myModel;
+    public void filltotable() throws SQLException {
+        myModel = (DefaultTableModel)tbl_Khachhang.getModel();
+        myModel.setRowCount(0);
+        String sql = "select * from KhachHang";
+        Statement stt = con.createStatement();
+        ResultSet rs = stt.executeQuery(sql);
+        while(rs.next()) {
+            String maKH = rs.getString("MaKH");
+            String hoTen = rs.getString("TenKH");
+            String ngaySinh = rs.getString("NgaySinhKH");
+            String gioiTinh = rs.getString("GioiTinhKH");
+            String SDT = rs.getString("SDTKH");
+            String CMND = rs.getString("CMNDKH");
+            String Email = rs.getString("EmailKH");
+            myModel.addRow(new Object[]{maKH, hoTen, ngaySinh, gioiTinh, SDT, CMND, Email});
+        }
+    }
+    
+    public boolean check() {
+        if(txtMa_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền mã khách hàng !");
+            txtMa_Khachhang.requestFocus(true);
+            return false;
+        }
+        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
+            String maKH = (String)tbl_Khachhang.getValueAt(i, 0);
+            if(txtMa_Khachhang.getText().equalsIgnoreCase(maKH)){
+                JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại");
+                txtMa_Khachhang.requestFocus(true);
+                return false;
+            }
+        }
+        if(txtHoTen_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền họ tên khách hàng !");
+            txtHoTen_Khachhang.requestFocus(true);
+            return false;
+        }
+        if(txtNgaySinh_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền ngày sinh khách hàng !");
+            txtNgaySinh_Khachhang.requestFocus(true);
+            return false;
+        }
+        Date date = null;
+        try {
+           date = new SimpleDateFormat("dd-MM-yyyy").parse(txtNgaySinh_Khachhang.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng đính dạng yyyy-MM-dd");
+            return false;
+        }
+        //Check Số điện thoại
+        if(txtSoDT_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền số điện thoại khách hàng !");
+            txtSoDT_Khachhang.requestFocus(true);
+            return false;
+        }
+        String sdtFormat = "0\\d{9}";
+        if(!txtSoDT_Khachhang.getText().matches(sdtFormat)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại có 10 số và đúng định dạng 0[1->9]");
+            txtSoDT_Khachhang.requestFocus(true);
+            return false;
+        }
+        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
+            String sdt  = (String)tbl_Khachhang.getValueAt(i, 4);
+            if(txtSoDT_Khachhang.getText().equalsIgnoreCase(sdt)){
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
+                txtSoDT_Khachhang.requestFocus(true);
+                return false;
+            }
+        }
+        if(txtCMND_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền cmnd khách hàng !");
+            txtCMND_Khachhang.requestFocus(true);
+            return false;
+        }
+        String cmndFormat = "\\d{12}";
+        if(!txtCMND_Khachhang.getText().matches(cmndFormat)) {
+            JOptionPane.showMessageDialog(this, "CMND không hợp lệ !");
+            txtCMND_Khachhang.requestFocus(true);
+            return false;
+        } 
+        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
+            String cmnd  = (String)tbl_Khachhang.getValueAt(i, 5);
+            if(txtCMND_Khachhang.getText().equalsIgnoreCase(cmnd)){
+                JOptionPane.showMessageDialog(this, "CMND đã tồn tại");
+                txtCMND_Khachhang.requestFocus(true);
+                return false;
+            }
+        }
+        if(txtEmail_Khachhang.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền email khách hàng !");
+            txtEmail_Khachhang.requestFocus(true);
+            return false;
+        }
+        String emailFormat = "\\w+@gmail.com";
+        if(!txtEmail_Khachhang.getText().matches(emailFormat)){
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ !");
+            txtEmail_Khachhang.requestFocus(true);
+            return false;
+        }
+        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
+             String email  = (String)tbl_Khachhang.getValueAt(i, 6);
+             if(txtEmail_Khachhang.getText().equalsIgnoreCase(email)){
+                 JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+                 txtEmail_Khachhang.requestFocus(true);
+                 return false;
+             }
+        }
+        return true;
+    }
+    
+    public void them() {
+        if(check()) {
+            String gt = null;
+            if(rdoNam_Khachhang.isSelected()){
+                gt = "Nam";
+            }
+            else{gt = "Nữ";}
+            String maKH = txtMa_Khachhang.getText();
+            String hoTen = txtHoTen_Khachhang.getText();
+            String ngaySinh = txtNgaySinh_Khachhang.getText();
+            String SDT = txtSoDT_Khachhang.getText();
+            String CMND = txtCMND_Khachhang.getText();
+            String Email = txtEmail_Khachhang.getText();
+            try {
+                String sql = "INSERT INTO KhachHang " +
+                        "VALUES ('"+maKH.trim()+"',N'"+hoTen.trim()+"','"+ngaySinh.trim()+"',N'"+gt.trim()+"','"+SDT.trim()+"','"+CMND.trim()+"','"+Email.trim()+"')";
+                Statement stt = con.createStatement();
+                ResultSet rs = stt.executeQuery(sql);
+                myModel.addRow(new Object[] {maKH, hoTen, ngaySinh, gt, SDT,CMND,Email}); 
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công");
+            } catch (Exception e) {
+            }
+            
+        }
+    }
+    
+    public void moi() {
+        btnThem_Khachhang.setEnabled(true);
+        btnSua_Khachhang.setEnabled(false);
+        btnXoa_Khachhang.setEnabled(false);
+        tbl_Khachhang.clearSelection();
+        txtMa_Khachhang.setText("");
+        txtHoTen_Khachhang.setText("");
+        txtNgaySinh_Khachhang.setText("");
+        rdoNam_Khachhang.setSelected(true);
+        txtSoDT_Khachhang.setText("");
+        txtEmail_Khachhang.setText("");
+        txtCMND_Khachhang.setText("");
+        txtMa_Khachhang.requestFocus(true);
+    }
+    
+    public void xoa(){
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa");
+        if(chon == 0){
+            
+        }
+    }
+   
+    public void update() {
+        
+    }
+    public void showDetail() {
+        index = tbl_Khachhang.getSelectedRow();
+        txtMa_Khachhang.setText((String)myModel.getValueAt(index, 0));
+        txtHoTen_Khachhang.setText((String)myModel.getValueAt(index, 1));
+        txtNgaySinh_Khachhang.setText((String)myModel.getValueAt(index, 2));
+        txtSoDT_Khachhang.setText((String)myModel.getValueAt(index, 4));
+        txtCMND_Khachhang.setText((String)myModel.getValueAt(index, 5));
+        txtEmail_Khachhang.setText((String)myModel.getValueAt(index, 6));
+        String gt = (String)myModel.getValueAt(index, 3);
+        if(gt.equals("Nam")) {
+            rdoNam_Khachhang.setSelected(true);
+        }
+        else{
+            rdoNu_Khachhang.setSelected(true);
+        }
+        btnSua_Khachhang.setEnabled(true);
+        btnXoa_Khachhang.setEnabled(true);
+        btnThem_Khachhang.setEnabled(false);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoi_Khachhang;

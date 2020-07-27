@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -365,12 +367,9 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThoat_NhanVienActionPerformed
 
     private void btnThem_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_NhanVienActionPerformed
-        try {
-            // TODO add your handling code here:
+      
             them();
-        } catch (SQLException ex) {
-            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_btnThem_NhanVienActionPerformed
 
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
@@ -481,19 +480,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     public void xoa() throws SQLException, ClassNotFoundException {
         int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa ?");
         if(chon == 0){
-            myModel = (DefaultTableModel)tbl_NhanVien.getModel();
-            int row = tbl_NhanVien.getSelectedRow();
-            try {
-                String MaNV = txtMa_NhanVien.getText();
-                String sql = "DELETE NhanVien " + 
-                            " WHERE MaNV = '" + MaNV.trim() + " '";
-                Statement stt = con.createStatement();
-                ResultSet rs = stt.executeQuery(sql);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa Thanh công");
-            }
-            myModel.removeRow(row);
-            clearForm();
+            
         }
     }
     
@@ -502,34 +489,91 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Không để trống mã Nhân Viên");
             return false;
         }
+        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
+            String maKH = (String)tbl_NhanVien.getValueAt(i, 0);
+            if(txtMa_NhanVien.getText().equalsIgnoreCase(maKH)){
+                JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại");
+                txtMa_NhanVien.requestFocus(true);
+                return false;
+            }
+        }
+        
         if(txtHoTen_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống họ và tên");
             return false;
         }
+        
+        if(txtNgaySinh_NhanVien.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Hãy điền ngày sinh nhân viên !");
+            txtNgaySinh_NhanVien.requestFocus(true);
+            return false;
+        }
+        Date date = null;
+        try {
+           date = new SimpleDateFormat("dd-MM-yyyy").parse(txtNgaySinh_NhanVien.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng đính dạng yyyy-MM-dd");
+            return false;
+        }
+        
         if(txtSoDT_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống số điện thoại");
             return false;
         }
-        try {
-            int sdt = Integer.parseInt(txtSoDT_NhanVien.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "SDT Không hợp lệ");
+        
+        String sdtFormat = "0\\d{9}";
+        if(!txtSoDT_NhanVien.getText().matches(sdtFormat)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại có 10 số và đúng định dạng 0[1->9]");
+            txtSoDT_NhanVien.requestFocus(true);
             return false;
         }
+        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
+            String sdt  = (String)tbl_NhanVien.getValueAt(i, 4);
+            if(txtSoDT_NhanVien.getText().equalsIgnoreCase(sdt)){
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
+                txtSoDT_NhanVien.requestFocus(true);
+                return false;
+            }
+        }
+        
         if(txtCMND_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống CMND");
             return false;
         }
-        try {
-            int cmnd = Integer.parseInt(txtCMND_NhanVien.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "CMND Không hợp lệ");
+        String cmndFormat = "\\d{12}";
+        if(!txtCMND_NhanVien.getText().matches(cmndFormat)) {
+            JOptionPane.showMessageDialog(this, "CMND không hợp lệ !");
+            txtCMND_NhanVien.requestFocus(true);
             return false;
+        } 
+        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
+            String cmnd  = (String)tbl_NhanVien.getValueAt(i, 5);
+            if(txtCMND_NhanVien.getText().equalsIgnoreCase(cmnd)){
+                JOptionPane.showMessageDialog(this, "CMND đã tồn tại");
+                txtCMND_NhanVien.requestFocus(true);
+                return false;
+            }
         }
+       
         if(txtEmail_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống Email");
             return false;
         }
+        String emailFormat = "\\w+@gmail.com";
+        if(!txtEmail_NhanVien.getText().matches(emailFormat)){
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ !");
+            txtEmail_NhanVien.requestFocus(true);
+            return false;
+        }
+        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
+             String email  = (String)tbl_NhanVien.getValueAt(i, 6);
+             if(txtEmail_NhanVien.getText().equalsIgnoreCase(email)){
+                 JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+                 txtEmail_NhanVien.requestFocus(true);
+                 return false;
+             }
+        }
+        
         if(txtLuong_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống Lương");
             return false;
@@ -540,71 +584,29 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Lương phải là số");
             return false;
         }
+        
+        
         if(txtUsername_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống Username");
             return false;
         }
+        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
+             String username  = (String)tbl_NhanVien.getValueAt(i, 9);
+             if(txtUsername_NhanVien.getText().equalsIgnoreCase(username)){
+                 JOptionPane.showMessageDialog(this, "Username đã tồn tại");
+                 txtUsername_NhanVien.requestFocus(true);
+                 return false;
+             }
+        }
+        
         if(txtPassword_NhanVien.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Không để trống Password");
             return false;
         }
-        ArrayList<String> maNV = new ArrayList<>();
-        ArrayList<String> sdtNV = new ArrayList<>();
-        ArrayList<String> emailNV = new ArrayList<>();
-        ArrayList<String> usernameNV = new ArrayList<>();
-        ArrayList<String> cmndNV = new ArrayList<>();
-        
-        int rowcount = myModel.getRowCount();
-        for(int i = 0; i <= rowcount - 1; i++){
-            maNV.add((String)myModel.getValueAt(i, 0));
-        }
-        for(int i = 0; i <= rowcount - 1; i++){
-            sdtNV.add((String)myModel.getValueAt(i, 4));
-        }
-        for(int i = 0; i <= rowcount - 1; i++){
-            emailNV.add((String)myModel.getValueAt(i, 6));
-        }
-        for(int i = 0; i <= rowcount - 1; i++){
-            usernameNV.add((String)myModel.getValueAt(i, 9));
-        }
-        for(int i = 0; i <= rowcount - 1; i++){
-            cmndNV.add((String)myModel.getValueAt(i, 5));
-        }
-        for(String x : maNV) {
-            if(txtMa_NhanVien.getText().equalsIgnoreCase(x)){
-                JOptionPane.showMessageDialog(this, "Mã Nhân Viên Đã Tồn Tại");
-                return false;
-            }
-        }
-        for(String x : sdtNV) {
-            if(txtSoDT_NhanVien.getText().equalsIgnoreCase(x)){
-                JOptionPane.showMessageDialog(this, "Số Điện Thoại Đã Tồn Tại");
-                return false;
-            }
-        }
-        for(String x : emailNV) {
-            if(txtEmail_NhanVien.getText().equalsIgnoreCase(x)){
-                JOptionPane.showMessageDialog(this, "Email Đã Tồn Tại");
-                return false;
-            }
-        }
-        for(String x : cmndNV) {
-            if(txtCMND_NhanVien.getText().equalsIgnoreCase(x)){
-                JOptionPane.showMessageDialog(this, "CMND Đã Tồn Tại");
-                return false;
-            }
-        }
-        for(String x : usernameNV) {
-            if(txtUsername_NhanVien.getText().equalsIgnoreCase(x)){
-                JOptionPane.showMessageDialog(this, "Username Đã Tồn Tại");
-                return false;
-            }
-        }
         return true;
     }
     
-    public void them() throws SQLException {
-        try {
+    public void them(){
             if(check()) {
             String maNV = txtMa_NhanVien.getText();
             String tenNV = txtHoTen_NhanVien.getText();
@@ -621,15 +623,18 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             String luongNV = txtLuong_NhanVien.getText();
             String usernameNV = txtUsername_NhanVien.getText();
             String passwordNV = txtPassword_NhanVien.getText();
-            myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV});
+            try {
+                String sql = "INSERT INTO NhanVien " +
+                    " VALUES ('"+maNV.trim()+"',N'"+tenNV.trim()+"','"+ngaysinhNV.trim() +"',N'"+gioitinhNV.trim()+"','"+sdtNV.trim()+"','"+cmndNV+"','"+emailNV.trim()+"',N'"+chucvuNV.trim()+"','"+luongNV.trim()+"','"+usernameNV.trim()+"','"+passwordNV.trim()+"')"; 
+                Statement stt = con.createStatement();
+                ResultSet rs = stt.executeQuery(sql);
+                myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV}); 
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công");
+            } catch (Exception e) {
+            }
             
-            String sql = "INSERT INTO NhanVien " +
-                    " VALUES ('"+maNV.trim()+"',N'"+tenNV.trim()+"'"+",'"+ngaysinhNV.trim() +"',"+"N'"+gioitinhNV.trim()+"','"+sdtNV.trim()+"','"+cmndNV+"','"+emailNV.trim()+"','"+chucvuNV.trim()+"','"+luongNV.trim()+"','"+usernameNV.trim()+"','"+passwordNV.trim()+"')"; 
-            Statement stt = con.createStatement();
-            ResultSet rs = stt.executeQuery(sql);
         } 
-        } catch (Exception e) {
-        }
+       
     }
     
     String maNV_cu;
@@ -640,9 +645,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 for(int i = 0; i <= column-1; i++){
                     myModel.setValueAt("", row, i);
                 }
-  
             if(check()) {
-                
                 String maNV = txtMa_NhanVien.getText();
                 String tenNV = txtHoTen_NhanVien.getText();
                 String ngaysinhNV = txtNgaySinh_NhanVien.getText();
@@ -672,7 +675,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 myModel.setValueAt(txtPassword_NhanVien.getText(), row, 10);
 
                 String sql = "UPDATE NhanVien " +
-                        "SET MaNV ='"+maNV.trim()+"',TenNV =N'"+tenNV.trim()+"',NgaySinhNV ='"+ngaysinhNV.trim()+"',GioiTinhNV =N'"+gioitinhNV.trim()+"',SDTNV ='"+sdtNV.trim()+"',CMNDNV ='"+cmndNV.trim()+"',EmailNV ='"+emailNV.trim()+"',ChucVuNV ='"+chucvuNV.trim()+"',LuongNv ='"+luongNV.trim()+"',UsernameNV= '"+usernameNV.trim()+"',PasswordNV ='"+passwordNV.trim()+"' " +
+                        "SET MaNV ='"+maNV.trim()+"',TenNV =N'"+tenNV.trim()+"',NgaySinhNV ='"+ngaysinhNV.trim()+"',GioiTinhNV =N'"+gioitinhNV.trim()+"',SDTNV ='"+sdtNV.trim()+"',CMNDNV ='"+cmndNV.trim()+"',EmailNV ='"+emailNV.trim()+"',ChucVuNV =N'"+chucvuNV.trim()+"',LuongNv ='"+luongNV.trim()+"',UsernameNV= '"+usernameNV.trim()+"',PasswordNV ='"+passwordNV.trim()+"' " +
                         "WHERE MaNV ='"+maNV_cu.trim()+"'";
                 Statement stt = con.createStatement();
                 ResultSet rs = stt.executeQuery(sql);     
@@ -681,6 +684,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Gender;
     private javax.swing.JButton btnMoi_NhanVien;
