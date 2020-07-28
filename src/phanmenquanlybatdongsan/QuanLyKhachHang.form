@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="resizable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Kh&#xe1;ch H&#xe0;ng"/>
@@ -240,6 +244,9 @@
     </Container>
     <Component class="javax.swing.JRadioButton" name="rdoNam_Khachhang">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
         </Property>
@@ -248,6 +255,9 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="rdoNu_Khachhang">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
         </Property>
@@ -350,7 +360,7 @@
               <Font name="Dialog" size="18" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/add.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\PhanMenQuanLyBatDongSan\img\add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
@@ -364,10 +374,13 @@
               <Font name="Dialog" size="18" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/delete.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\PhanMenQuanLyBatDongSan\img\delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Xo&#xe1;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa_KhachhangActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMoi_Khachhang">
           <Properties>
@@ -375,7 +388,7 @@
               <Font name="Dialog" size="18" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/clear.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\PhanMenQuanLyBatDongSan\img\clear.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
           </Properties>
@@ -389,7 +402,7 @@
               <Font name="Dialog" size="18" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/edit.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\PhanMenQuanLyBatDongSan\img\edit.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
           </Properties>
@@ -400,7 +413,7 @@
               <Font name="Dialog" size="18" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/exit.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\PhanMenQuanLyBatDongSan\img\exit.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
           </Properties>

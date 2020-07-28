@@ -5,14 +5,15 @@
  */
 package phanmenquanlybatdongsan;
 
+import Modify.KetNoi;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,10 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class QuanLyNhanVien extends javax.swing.JInternalFrame {
-    Connection con;
-    String hosting = "jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS";
-    String username = "sa";
-    String password = "19216811";
+    KetNoi ketnoi;
     /**
      * Creates new form QuanLyNhanVien
      */
@@ -38,11 +36,10 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         btnXoa_NhanVien.setEnabled(false);
         rdoNam_NhanVien.setSelected(true);
         try {
-            ketnoi();
+            ketnoi = new KetNoi();
+            ketnoi.ketnoi();
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, ex);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex);
+            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             filltotable();
@@ -191,7 +188,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThem_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
+        btnThem_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\add.png")); // NOI18N
         btnThem_NhanVien.setText("Thêm");
         btnThem_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +197,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnXoa_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnXoa_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
+        btnXoa_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\delete.png")); // NOI18N
         btnXoa_NhanVien.setText("Xoá");
         btnXoa_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +206,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnMoi_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoi_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
+        btnMoi_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\clear.png")); // NOI18N
         btnMoi_NhanVien.setText("Mới");
         btnMoi_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +215,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnSua_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnSua_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        btnSua_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\edit.png")); // NOI18N
         btnSua_NhanVien.setText("Sửa");
         btnSua_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +224,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnThoat_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThoat_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        btnThoat_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\exit.png")); // NOI18N
         btnThoat_NhanVien.setText("Thoát");
         btnThoat_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,9 +364,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThoat_NhanVienActionPerformed
 
     private void btnThem_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_NhanVienActionPerformed
-      
-            them();
-       
+       them();
     }//GEN-LAST:event_btnThem_NhanVienActionPerformed
 
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
@@ -379,16 +374,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_NhanVienMouseClicked
 
     private void btnXoa_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_NhanVienActionPerformed
-        try {
-            try {
-                // TODO add your handling code here:
-                xoa();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_btnXoa_NhanVienActionPerformed
 
     private void btnMoi_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_NhanVienActionPerformed
@@ -406,16 +392,12 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSua_NhanVienActionPerformed
     
     DefaultTableModel myModel;
-    public void ketnoi() throws ClassNotFoundException, SQLException {
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver") ;
-        con = DriverManager.getConnection(hosting, username, password);
-    }
     
     public void filltotable() throws SQLException {
         myModel = (DefaultTableModel)tbl_NhanVien.getModel();
         myModel.setRowCount(0);
         String sql = "select * from NhanVien";
-        Statement stt = con.createStatement();
+        Statement stt = ketnoi.con.createStatement();
         ResultSet rs = stt.executeQuery(sql);
         while (rs.next()) {
             String maNV = rs.getString("MaNV");
@@ -626,7 +608,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             try {
                 String sql = "INSERT INTO NhanVien " +
                     " VALUES ('"+maNV.trim()+"',N'"+tenNV.trim()+"','"+ngaysinhNV.trim() +"',N'"+gioitinhNV.trim()+"','"+sdtNV.trim()+"','"+cmndNV+"','"+emailNV.trim()+"',N'"+chucvuNV.trim()+"','"+luongNV.trim()+"','"+usernameNV.trim()+"','"+passwordNV.trim()+"')"; 
-                Statement stt = con.createStatement();
+                Statement stt = ketnoi.con.createStatement();
                 ResultSet rs = stt.executeQuery(sql);
                 myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
@@ -677,14 +659,13 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 String sql = "UPDATE NhanVien " +
                         "SET MaNV ='"+maNV.trim()+"',TenNV =N'"+tenNV.trim()+"',NgaySinhNV ='"+ngaysinhNV.trim()+"',GioiTinhNV =N'"+gioitinhNV.trim()+"',SDTNV ='"+sdtNV.trim()+"',CMNDNV ='"+cmndNV.trim()+"',EmailNV ='"+emailNV.trim()+"',ChucVuNV =N'"+chucvuNV.trim()+"',LuongNv ='"+luongNV.trim()+"',UsernameNV= '"+usernameNV.trim()+"',PasswordNV ='"+passwordNV.trim()+"' " +
                         "WHERE MaNV ='"+maNV_cu.trim()+"'";
-                Statement stt = con.createStatement();
+                Statement stt = ketnoi.con.createStatement();
                 ResultSet rs = stt.executeQuery(sql);     
                 clearForm();
             }
         } catch (Exception e) {
         }
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Gender;

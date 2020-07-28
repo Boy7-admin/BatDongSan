@@ -5,6 +5,9 @@
  */
 package phanmenquanlybatdongsan;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Admin
@@ -164,11 +167,17 @@ public class Main extends javax.swing.JFrame{
     }//GEN-LAST:event_menuNVActionPerformed
 
     private void menuKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKHActionPerformed
-        // TODO add your handling code here:
-        QuanLyKhachHang khachhangview = new QuanLyKhachHang();
-        desktop.removeAll();
-        desktop.add(khachhangview);
-        khachhangview.setVisible(true);
+
+        try {
+            // TODO add your handling code here:
+            QuanLyKhachHang khachhangview = new QuanLyKhachHang();
+            desktop.removeAll();
+            desktop.add(khachhangview);
+            khachhangview.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_menuKHActionPerformed
 
     private void menuBDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBDSActionPerformed

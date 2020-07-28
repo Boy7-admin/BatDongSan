@@ -5,12 +5,16 @@
  */
 package phanmenquanlybatdongsan;
 
+import Modify.KetNoi;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,22 +23,36 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class QuanLyKhachHang extends javax.swing.JInternalFrame {
-    Connection con;
-    String hosting = "jdbc:sqlserver://localhost\\DESKTOP-81VHF3A\\SQLEXPRESS:1433;databaseName=QL_BDS";
-    String username = "sa";
-    String password = "12345";
+    KetNoi ketnoi;
     int index;
-    
-    
     /**
      * Creates new form QuanLyKhachHang
      */
-    public QuanLyKhachHang() {
+//    public void ketnoi() throws ClassNotFoundException, SQLException {
+//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver") ;
+//        con = DriverManager.getConnection(hosting, username, password);
+//    }
+    public QuanLyKhachHang() throws ClassNotFoundException {
         initComponents();
         setSize(1000, 540);
+        rdoNam_Khachhang.setSelected(true);
+        btnSua_Khachhang.setEnabled(false);
+        btnXoa_Khachhang.setEnabled(false);
+        try {
+            ketnoi = new KetNoi();
+            ketnoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            filltotable();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public void openKhachHang() {
+    public void openKhachHang() throws ClassNotFoundException {
         QuanLyKhachHang quanLyKhachHang = new QuanLyKhachHang();
         quanLyKhachHang.setVisible(true);
     }
@@ -48,6 +66,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -117,9 +136,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbl_Khachhang);
 
+        buttonGroup1.add(rdoNam_Khachhang);
         rdoNam_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         rdoNam_Khachhang.setText("Nam");
 
+        buttonGroup1.add(rdoNu_Khachhang);
         rdoNu_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         rdoNu_Khachhang.setText("Nữ");
 
@@ -142,7 +163,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThem_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
+        btnThem_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\add.png")); // NOI18N
         btnThem_Khachhang.setText("Thêm");
         btnThem_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,11 +172,16 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
 
         btnXoa_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnXoa_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
+        btnXoa_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\delete.png")); // NOI18N
         btnXoa_Khachhang.setText("Xoá");
+        btnXoa_Khachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoa_KhachhangActionPerformed(evt);
+            }
+        });
 
         btnMoi_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoi_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
+        btnMoi_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\clear.png")); // NOI18N
         btnMoi_Khachhang.setText("Mới");
         btnMoi_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,11 +190,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
 
         btnSua_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnSua_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        btnSua_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\edit.png")); // NOI18N
         btnSua_Khachhang.setText("Sửa");
 
         btnThoat_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThoat_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        btnThoat_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\exit.png")); // NOI18N
         btnThoat_Khachhang.setText("Thoát");
         btnThoat_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,12 +328,17 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         showDetail();
     }//GEN-LAST:event_tbl_KhachhangMouseClicked
 
+    private void btnXoa_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_KhachhangActionPerformed
+//        xoa();
+    }//GEN-LAST:event_btnXoa_KhachhangActionPerformed
+    
+    
     DefaultTableModel myModel;
     public void filltotable() throws SQLException {
         myModel = (DefaultTableModel)tbl_Khachhang.getModel();
         myModel.setRowCount(0);
         String sql = "select * from KhachHang";
-        Statement stt = con.createStatement();
+        Statement stt = ketnoi.con.createStatement();
         ResultSet rs = stt.executeQuery(sql);
         while(rs.next()) {
             String maKH = rs.getString("MaKH");
@@ -429,7 +460,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             try {
                 String sql = "INSERT INTO KhachHang " +
                         "VALUES ('"+maKH.trim()+"',N'"+hoTen.trim()+"','"+ngaySinh.trim()+"',N'"+gt.trim()+"','"+SDT.trim()+"','"+CMND.trim()+"','"+Email.trim()+"')";
-                Statement stt = con.createStatement();
+                Statement stt = ketnoi.con.createStatement();
                 ResultSet rs = stt.executeQuery(sql);
                 myModel.addRow(new Object[] {maKH, hoTen, ngaySinh, gt, SDT,CMND,Email}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
@@ -484,13 +515,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         btnThem_Khachhang.setEnabled(false);
     }
     
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoi_Khachhang;
     private javax.swing.JButton btnSua_Khachhang;
     private javax.swing.JButton btnThem_Khachhang;
     private javax.swing.JButton btnThoat_Khachhang;
     private javax.swing.JButton btnXoa_Khachhang;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
