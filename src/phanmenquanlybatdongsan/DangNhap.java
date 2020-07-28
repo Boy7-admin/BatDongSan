@@ -5,6 +5,7 @@
  */
 package phanmenquanlybatdongsan;
 
+import Modify.KetNoi;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,21 +20,18 @@ import java.util.logging.Logger;
  * @author shiro
  */
 public class DangNhap extends javax.swing.JInternalFrame {
-    Connection con;
-    String hosting = "jdbc:sqlserver://localhost\\DESKTOP-81VHF3A\\SQLEXPRESS:1433;databaseName=QL_BDS";
-    String username = "sa";
-    String password = "12345";
+    KetNoi ketnoi;
     /**
      * Creates new form Login
      */
     public void ketnoi() throws ClassNotFoundException, SQLException {
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver") ;
-        con = DriverManager.getConnection(hosting, username, password);
+        ketnoi = new KetNoi();
+        ketnoi.ketnoi();
     }
     ArrayList<Data.Account> listAcc = new ArrayList<>();
     public void taidulieu() throws SQLException {
         String sql = "Select * from NhanVien";
-        Statement stt = con.createStatement();
+        Statement stt = ketnoi.con.createStatement();
         ResultSet rs = stt.executeQuery(sql);
         while(rs.next()){
             String usernameNV = rs.getString("UsernameNV");
@@ -612,7 +610,7 @@ public class DangNhap extends javax.swing.JInternalFrame {
         pwdPassword_DangNhap.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         btnLogin_DangNhap.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        btnLogin_DangNhap.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\login.png")); // NOI18N
+        btnLogin_DangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.png"))); // NOI18N
         btnLogin_DangNhap.setText("Login");
         btnLogin_DangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -621,7 +619,7 @@ public class DangNhap extends javax.swing.JInternalFrame {
         });
 
         btnCancel_DangNhap.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        btnCancel_DangNhap.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\cancel.png")); // NOI18N
+        btnCancel_DangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
         btnCancel_DangNhap.setText("Cancel");
         btnCancel_DangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,21 +686,21 @@ public class DangNhap extends javax.swing.JInternalFrame {
                 .addContainerGap(299, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 499, Short.MAX_VALUE)
+                    .addGap(0, 505, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 499, Short.MAX_VALUE)))
+                    .addGap(0, 505, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(499, Short.MAX_VALUE)
+                    .addContainerGap(505, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(499, Short.MAX_VALUE)))
+                    .addContainerGap(505, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 259, Short.MAX_VALUE)

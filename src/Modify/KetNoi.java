@@ -26,7 +26,7 @@ public class KetNoi {
     }
 
     public void ketnoi2() throws ClassNotFoundException, SQLException {
-        String hosting = "jdbc:sqlserver://localhost\\\\DESKTOP-DAR31D1\\\\SQLEXPRESS:1433;databaseName=QL_BDS";
+        String hosting = "jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS";
         String username = "sa";
         String password = "19216811";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -34,9 +34,9 @@ public class KetNoi {
     }
 
     public void ketnoi3() throws ClassNotFoundException, SQLException {
-        String hosting = "jdbc:sqlserer://localhost\\DESKTOP-81VHF3A\\SQLEXPRESS:1433;databaseName=QL_BDS";
+        String hosting = "jdbc:sqlserver://localhost\\AdminPC\\sqlexpress:1433;databaseName=QL_BDS";
         String username = "sa";
-        String password = "12345";
+        String password = "thang3012";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         con = DriverManager.getConnection(hosting, username, password);
     }
