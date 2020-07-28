@@ -6,14 +6,11 @@
 package phanmenquanlybatdongsan;
 
 import Modify.KetNoi;
-import java.sql.Connection;
 import java.util.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -188,7 +185,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThem_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\add.png")); // NOI18N
+        btnThem_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         btnThem_NhanVien.setText("Thêm");
         btnThem_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,7 +194,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnXoa_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnXoa_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\delete.png")); // NOI18N
+        btnXoa_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnXoa_NhanVien.setText("Xoá");
         btnXoa_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +203,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnMoi_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoi_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\clear.png")); // NOI18N
+        btnMoi_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
         btnMoi_NhanVien.setText("Mới");
         btnMoi_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +212,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnSua_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnSua_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\edit.png")); // NOI18N
+        btnSua_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
         btnSua_NhanVien.setText("Sửa");
         btnSua_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +221,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         });
 
         btnThoat_NhanVien.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThoat_NhanVien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\exit.png")); // NOI18N
+        btnThoat_NhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         btnThoat_NhanVien.setText("Thoát");
         btnThoat_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +284,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                             .addComponent(txtMa_NhanVien, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSoDT_NhanVien)
                             .addComponent(txtNgaySinh_NhanVien, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

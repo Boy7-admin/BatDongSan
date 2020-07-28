@@ -22,15 +22,19 @@ import java.util.logging.Logger;
  */
 public class BatDongSanModify {
 
+    public static KetNoi ketNoi;
+
     public static List<Data.BatDongSan> filltoTable() {
 
         List<Data.BatDongSan> bdslist = new ArrayList<>();
-
-        Connection connection = null;
-        Statement statement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS", "sa", "19216811");
-            statement = connection.createStatement();
+            ketNoi = new KetNoi();
+            ketNoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Statement statement = ketNoi.con.createStatement();
             String sql = "select * from BatDongSan";
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -47,32 +51,20 @@ public class BatDongSanModify {
 
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return bdslist;
     }
 
     public static void insert(Data.BatDongSan bds) {
-        Connection connection = null;
-        PreparedStatement statement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS", "sa", "19216811");
+            ketNoi = new KetNoi();
+            ketNoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             String sql = "insert into batDongSan values (?, ?, ?, ?, ?, ?, ?)";
-            statement = connection.prepareCall(sql);
+            PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, bds.getMa());
             statement.setString(2, bds.getTen());
             statement.setString(3, String.valueOf(bds.getGia()));
@@ -83,30 +75,19 @@ public class BatDongSanModify {
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
+
     public static void update(Data.BatDongSan bds) {
-        Connection connection = null;
-        PreparedStatement statement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS", "sa", "19216811");
+            ketNoi = new KetNoi();
+            ketNoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             String sql = "update BatDongSan set MaBDS = ?, TenBDS = ?, GiaBDS = ?, DiaChiBDS = ?, LoaiBDS = ?, MotaBDS = ?, TrangThaiBDS = ? where MaBDS = ?";
-            statement = connection.prepareCall(sql);
+            PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, bds.getMa());
             statement.setString(2, bds.getTen());
             statement.setString(3, String.valueOf(bds.getGia()));
@@ -118,50 +99,23 @@ public class BatDongSanModify {
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
-    
+
     public static void delete(String ma) {
-        Connection connection = null;
-        PreparedStatement statement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost\\DESKTOP-DAR31D1\\SQLEXPRESS:1433;databaseName=QL_BDS", "sa", "19216811");
+            ketNoi = new KetNoi();
+            ketNoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             String sql = "delete from BatDongSan where MaBDS = ?";
-            statement = connection.prepareCall(sql);
+            PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, ma);
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 

@@ -163,7 +163,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThem_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\add.png")); // NOI18N
+        btnThem_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         btnThem_Khachhang.setText("Thêm");
         btnThem_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +172,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
 
         btnXoa_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnXoa_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\delete.png")); // NOI18N
+        btnXoa_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnXoa_Khachhang.setText("Xoá");
         btnXoa_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,7 +181,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
 
         btnMoi_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoi_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\clear.png")); // NOI18N
+        btnMoi_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
         btnMoi_Khachhang.setText("Mới");
         btnMoi_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,11 +190,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         });
 
         btnSua_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnSua_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\edit.png")); // NOI18N
+        btnSua_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
         btnSua_Khachhang.setText("Sửa");
 
         btnThoat_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThoat_Khachhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\PhanMenQuanLyBatDongSan\\img\\exit.png")); // NOI18N
+        btnThoat_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         btnThoat_Khachhang.setText("Thoát");
         btnThoat_Khachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
