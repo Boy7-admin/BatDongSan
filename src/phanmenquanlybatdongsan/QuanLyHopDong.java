@@ -122,17 +122,17 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
 
     public void them() {
         if (check()) {
-            Data.HopDong hopDong = new Data.HopDong(txtMaHD_HopDong.getText(), 
-                    txtTenHD_HopDong.getText(), 
-                    txtMaNV_HopDong.getText(), 
-                    txtMaKH_HopDong.getText(), 
-                    txtMaBDS_HopDong.getText(), 
+            Data.HopDong hopDong = new Data.HopDong(txtMaHD_HopDong.getText(),
+                    txtTenHD_HopDong.getText(),
+                    txtMaNV_HopDong.getText(),
+                    txtMaKH_HopDong.getText(),
+                    txtMaBDS_HopDong.getText(),
                     txtNgayTao_HopDong.getText());
             Modify.HopDongModify.insert(hopDong);
             fill();
         }
     }
-    
+
     public void showDetail() {
         int i = tbl_HopDong.getSelectedRow();
         if (i >= 0) {
@@ -145,17 +145,15 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
             txtNgayTao_HopDong.setText(hd.getNgaytao());
         }
     }
-    
+
     public void xoa() {
         try {
             String macanxoa = JOptionPane.showInputDialog(this, "Nhap ma hop dong can xoa: ");
-            for (int i = 0; i <= tbl_HopDong.getRowCount(); i++) {
-                String ma = (String) tbl_HopDong.getValueAt(i, 0);
-                if (!macanxoa.equalsIgnoreCase(ma)) {
-                    JOptionPane.showMessageDialog(this, "Khong tim hop dong co ma: " + macanxoa);
-                    return;
-                } else {
-                    int option = JOptionPane.showConfirmDialog(this, "Xoa hop dong co ma: " + ma);
+            int a = 0;
+            for (int i = 0; i <= listHD.size(); i++) {
+                if (macanxoa.equalsIgnoreCase(listHD.get(i).getMa())) {
+                    a++;
+                    int option = JOptionPane.showConfirmDialog(this, "Xoa hop dong co ma: " + macanxoa);
                     switch (option) {
                         case 0:
                             Modify.HopDongModify.delete(macanxoa);
@@ -171,11 +169,14 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            if (a == 0) {
+                JOptionPane.showMessageDialog(this, "Khong tim hop dong co ma: " + macanxoa);
+            }
         } catch (java.lang.NullPointerException e) {
 
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

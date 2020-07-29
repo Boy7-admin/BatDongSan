@@ -6,6 +6,7 @@
 package phanmenquanlybatdongsan;
 
 import Data.BatDongSan;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -134,7 +135,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
             int a = 0;
             for (int i = 0; i <= listBDS.size(); i++) {
                 if (macanxoa.equalsIgnoreCase(listBDS.get(i).getMa())) {
-                    a ++;
+                    a++;
                     int option = JOptionPane.showConfirmDialog(this, "Xoa BDS co ma: " + macanxoa);
                     switch (option) {
                         case 0:
@@ -153,7 +154,6 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
             }
             if (a == 0) {
                 JOptionPane.showMessageDialog(this, "Khong tim thay BDS co ma: " + macanxoa);
-
             }
         } catch (java.lang.NullPointerException e) {
 
@@ -164,17 +164,21 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         int i = tbl_BatDongSan.getSelectedRow();
         if (i >= 0) {
             if (check()) {
-                Data.BatDongSan bds = listBDS.get(i);
-                bds.setMa(txtMa_BatDongSan.getText());
-                bds.setTen(txtTen_BatDongSan.getText());
-                bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
-                bds.setDiachi(txtDiaChi_BatDongSan.getText());
-                bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
-                bds.setMota(txtMoTa_BatDongSan.getText());
-                bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
-                Modify.BatDongSanModify.update(bds);
-                fill();
-                JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
+                Data.BatDongSan batDongSan = listBDS.get(i);
+                try {
+                    batDongSan.setMa(txtMa_BatDongSan.getText());
+                    batDongSan.setTen(txtTen_BatDongSan.getText());
+                    batDongSan.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
+                    batDongSan.setDiachi(txtDiaChi_BatDongSan.getText());
+                    batDongSan.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
+                    batDongSan.setMota(txtMoTa_BatDongSan.getText());
+                    batDongSan.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
+                    Modify.BatDongSanModify.update(batDongSan);
+                    fill();
+                    JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
+                } catch (HeadlessException | NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, e);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Chon Bat Dong San can sua");

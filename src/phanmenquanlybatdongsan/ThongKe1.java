@@ -5,19 +5,38 @@
  */
 package phanmenquanlybatdongsan;
 
+import Modify.KetNoi;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author admin
  */
-public class ThongKe extends javax.swing.JInternalFrame {
+public class ThongKe1 extends javax.swing.JInternalFrame {
+
+    KetNoi ketNoi;
 
     /**
      * Creates new form ThongKe
      */
-    public ThongKe() {
+    public ThongKe1() {
         initComponents();
-        setTitle("Thống Kê");
         setSize(1000, 540);
+        setTitle("Thống Kê");
+        try {
+            FillToTable("select * from BatDongSan");
+//            cbxLoaiBDS();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -45,11 +64,21 @@ public class ThongKe extends javax.swing.JInternalFrame {
         jLabel2.setText("Trạng Thái:");
 
         cboLoaiBDS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đất nền", "Căn hộ", "Biệt thự" }));
+        cboLoaiBDS.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboLoaiBDSItemStateChanged(evt);
+            }
+        });
 
         lblSoLuongBDS.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lblSoLuongBDS.setText("Số Lượng:");
 
         cboTrangThaibds.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã bán", "Chưa bán" }));
+        cboTrangThaibds.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTrangThaibdsItemStateChanged(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,8 +106,12 @@ public class ThongKe extends javax.swing.JInternalFrame {
         jTable1.setRowHeight(30);
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jButton1.setText("Thoát");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,7 +131,7 @@ public class ThongKe extends javax.swing.JInternalFrame {
                         .addComponent(cboTrangThaibds, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addComponent(lblSoLuongBDS, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -113,7 +146,7 @@ public class ThongKe extends javax.swing.JInternalFrame {
                     .addComponent(cboLoaiBDS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboTrangThaibds, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -121,7 +154,87 @@ public class ThongKe extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cboLoaiBDSItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLoaiBDSItemStateChanged
+        try {
+            // TODO add your handling code here:
+            cbxLoaiBDS();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cboLoaiBDSItemStateChanged
+
+    private void cboTrangThaibdsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTrangThaibdsItemStateChanged
+        try {
+            // TODO add your handling code here:
+            cbxTrangThaiBDS();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cboTrangThaibdsItemStateChanged
+    public void ketnoi() throws ClassNotFoundException, SQLException {
+        ketNoi = new KetNoi();
+        ketNoi.ketnoi();
+    }
+
+    List<ThongKeBDS> list = new ArrayList<>();
+
+    public void FillToTable(String lenh) throws SQLException {
+        try {
+            ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ThongKe1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Statement stt = ketNoi.con.createStatement();
+        ResultSet rs = stt.executeQuery(lenh);
+        list.removeAll(list);
+        while (rs.next()) {
+            String maBds = rs.getString("MaBDS");
+            String TenBDS = rs.getString("TenBDS");
+            String GiaBDS = rs.getString("GiaBDS");
+            String DiaChiBDS = rs.getString("DiaChiBDS");
+            String LoaiBDS = rs.getString("LoaiBDS");
+            String MotaBDS = rs.getString("MotaBDS");
+            String TrangThai = rs.getString("TrangThai");
+            list.add(new ThongKeBDS(maBds, TenBDS, GiaBDS, DiaChiBDS, LoaiBDS, MotaBDS, TrangThai));
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        jTable1.removeAll();
+        model.setRowCount(0);
+        list.forEach((tk) -> {
+            model.addRow(new Object[]{tk.getMa(), tk.getTen(), tk.getGia(), tk.getDiachi(), tk.getMota()});
+        });
+        lblSoLuongBDS.setText("Số lượng : " + list.size());
+    }
+
+    public void cbxLoaiBDS() throws SQLException {
+
+        switch (cboLoaiBDS.getSelectedIndex()) {
+            case 0:
+                FillToTable("SELECT *FROM BatDongSan where LoaiBDS=N'Đất nền'");
+                break;
+            case 1:
+                FillToTable("SELECT *FROM BatDongSan where LoaiBDS=N'Căn hộ'");
+                break;
+            case 2:
+                FillToTable("SELECT *FROM BatDongSan where LoaiBDS=N'Biệt thự'");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void cbxTrangThaiBDS() throws SQLException {
+        if (cboTrangThaibds.getSelectedIndex() == 0) {
+            FillToTable("select * from BatDongSan where TrangThai=N'Đã bán'");
+        } else if (cboTrangThaibds.getSelectedIndex() == 1) {
+            FillToTable("select * from BatDongSan where TrangThai=N'Chưa bán'");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLoaiBDS;
     private javax.swing.JComboBox<String> cboTrangThaibds;
