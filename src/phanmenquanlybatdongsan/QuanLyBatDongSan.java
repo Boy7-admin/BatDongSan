@@ -5,6 +5,7 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.BatDongSan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -60,9 +61,8 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
             txtMa_BatDongSan.requestFocus();
             return false;
         }
-        for (int i = 0; i < tbl_BatDongSan.getRowCount(); i++) {
-            String ma = (String) tbl_BatDongSan.getValueAt(i, 0);
-            if (txtMa_BatDongSan.getText().equalsIgnoreCase(ma)) {
+        for (int i = 0; i < listBDS.size(); i++) {
+            if (txtMa_BatDongSan.getText().equalsIgnoreCase(listBDS.get(i).getMa())) {
                 JOptionPane.showMessageDialog(this, "Ma BDS da duoc su dung");
                 txtMa_BatDongSan.setText("");
                 txtMa_BatDongSan.requestFocus();
@@ -128,16 +128,14 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         }
     }
 
-    public void tim() {
+    public void xoa() {
         try {
             String macanxoa = JOptionPane.showInputDialog(this, "Nhap ma BDS can xoa: ");
-            for (int i = 0; i <= tbl_BatDongSan.getRowCount(); i++) {
-                String ma = (String) tbl_BatDongSan.getValueAt(i, 0);
-                if (!macanxoa.equalsIgnoreCase(ma)) {
-                    JOptionPane.showMessageDialog(this, "Khong tim thay BDS co ma: " + macanxoa);
-                    return;
-                } else {
-                    int option = JOptionPane.showConfirmDialog(this, "Xoa BDS co ma: " + ma);
+            int a = 0;
+            for (int i = 0; i <= listBDS.size(); i++) {
+                if (macanxoa.equalsIgnoreCase(listBDS.get(i).getMa())) {
+                    a ++;
+                    int option = JOptionPane.showConfirmDialog(this, "Xoa BDS co ma: " + macanxoa);
                     switch (option) {
                         case 0:
                             Modify.BatDongSanModify.delete(macanxoa);
@@ -153,13 +151,34 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            if (a == 0) {
+                JOptionPane.showMessageDialog(this, "Khong tim thay BDS co ma: " + macanxoa);
+
+            }
         } catch (java.lang.NullPointerException e) {
 
         }
     }
 
     public void sua() {
-
+        int i = tbl_BatDongSan.getSelectedRow();
+        if (i >= 0) {
+            if (check()) {
+                Data.BatDongSan bds = listBDS.get(i);
+                bds.setMa(txtMa_BatDongSan.getText());
+                bds.setTen(txtTen_BatDongSan.getText());
+                bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
+                bds.setDiachi(txtDiaChi_BatDongSan.getText());
+                bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
+                bds.setMota(txtMoTa_BatDongSan.getText());
+                bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
+                Modify.BatDongSanModify.update(bds);
+                fill();
+                JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chon Bat Dong San can sua");
+        }
     }
 
     /**
@@ -432,11 +451,11 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThem_BatDongSanActionPerformed
 
     private void btnSua_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua_BatDongSanActionPerformed
-
+        sua();
     }//GEN-LAST:event_btnSua_BatDongSanActionPerformed
 
     private void btnXoa_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_BatDongSanActionPerformed
-        tim();
+        xoa();
     }//GEN-LAST:event_btnXoa_BatDongSanActionPerformed
 
     private void btnMoi_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_BatDongSanActionPerformed

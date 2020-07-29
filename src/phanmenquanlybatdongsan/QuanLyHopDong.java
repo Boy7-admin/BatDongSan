@@ -146,7 +146,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
         }
     }
     
-    public void tim() {
+    public void xoa() {
         try {
             String macanxoa = JOptionPane.showInputDialog(this, "Nhap ma hop dong can xoa: ");
             for (int i = 0; i <= tbl_HopDong.getRowCount(); i++) {
@@ -420,7 +420,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSua_HopDongActionPerformed
 
     private void btnXoa_HopDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_HopDongActionPerformed
-        tim();
+        xoa();
     }//GEN-LAST:event_btnXoa_HopDongActionPerformed
 
     private void btnMoi_HopDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_HopDongActionPerformed

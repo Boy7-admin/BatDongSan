@@ -5,8 +5,6 @@
  */
 package Modify;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,9 +66,9 @@ public class BatDongSanModify {
             statement.setString(1, bds.getMa());
             statement.setString(2, bds.getTen());
             statement.setString(3, String.valueOf(bds.getGia()));
-            statement.setString(6, bds.getDiachi());
-            statement.setString(4, bds.getLoai());
-            statement.setString(5, bds.getMota());
+            statement.setString(4, bds.getDiachi());
+            statement.setString(5, bds.getLoai());
+            statement.setString(6, bds.getMota());
             statement.setString(7, bds.getTrangthai());
             statement.execute();
         } catch (SQLException ex) {
@@ -86,14 +84,14 @@ public class BatDongSanModify {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            String sql = "update BatDongSan set MaBDS = ?, TenBDS = ?, GiaBDS = ?, DiaChiBDS = ?, LoaiBDS = ?, MotaBDS = ?, TrangThaiBDS = ? where MaBDS = ?";
+            String sql = "update BatDongSan set MaBDS = ?, TenBDS = ?, GiaBDS = ?, DiaChiBDS = ?, LoaiBDS = ?, MotaBDS = ?, TrangThai = ? where MaBDS = ?";
             PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, bds.getMa());
             statement.setString(2, bds.getTen());
             statement.setString(3, String.valueOf(bds.getGia()));
-            statement.setString(6, bds.getDiachi());
-            statement.setString(4, bds.getLoai());
-            statement.setString(5, bds.getMota());
+            statement.setString(4, bds.getDiachi());
+            statement.setString(5, bds.getLoai());
+            statement.setString(6, bds.getMota());
             statement.setString(7, bds.getTrangthai());
             statement.setString(8, bds.getMa());
             statement.execute();
