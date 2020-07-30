@@ -164,16 +164,16 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         int i = tbl_BatDongSan.getSelectedRow();
         if (i >= 0) {
             if (check()) {
-                Data.BatDongSan batDongSan = listBDS.get(i);
+                BatDongSan bds = listBDS.get(i);
                 try {
-                    batDongSan.setMa(txtMa_BatDongSan.getText());
-                    batDongSan.setTen(txtTen_BatDongSan.getText());
-                    batDongSan.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
-                    batDongSan.setDiachi(txtDiaChi_BatDongSan.getText());
-                    batDongSan.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
-                    batDongSan.setMota(txtMoTa_BatDongSan.getText());
-                    batDongSan.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
-                    Modify.BatDongSanModify.update(batDongSan);
+                    bds.setMa(txtMa_BatDongSan.getText());
+                    bds.setTen(txtTen_BatDongSan.getText());
+                    bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
+                    bds.setDiachi(txtDiaChi_BatDongSan.getText());
+                    bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
+                    bds.setMota(txtMoTa_BatDongSan.getText());
+                    bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
+                    Modify.BatDongSanModify.update(bds);
                     fill();
                     JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
                 } catch (HeadlessException | NumberFormatException e) {

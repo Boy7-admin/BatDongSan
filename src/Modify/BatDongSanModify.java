@@ -46,7 +46,8 @@ public class BatDongSanModify {
                         resultSet.getString("TrangThai"));
                 bdslist.add(batDongSan);
             }
-
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,6 +72,8 @@ public class BatDongSanModify {
             statement.setString(6, bds.getMota());
             statement.setString(7, bds.getTrangthai());
             statement.execute();
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,7 +88,7 @@ public class BatDongSanModify {
         }
         try {
             String sql = "update BatDongSan set MaBDS = ?, TenBDS = ?, GiaBDS = ?, DiaChiBDS = ?, LoaiBDS = ?, MotaBDS = ?, TrangThai = ? where MaBDS = ?";
-            PreparedStatement statement = ketNoi.con.prepareCall(sql);
+            PreparedStatement statement = ketNoi.con.prepareStatement(sql);
             statement.setString(1, bds.getMa());
             statement.setString(2, bds.getTen());
             statement.setString(3, String.valueOf(bds.getGia()));
@@ -94,7 +97,9 @@ public class BatDongSanModify {
             statement.setString(6, bds.getMota());
             statement.setString(7, bds.getTrangthai());
             statement.setString(8, bds.getMa());
-            statement.execute();
+            statement.executeUpdate();
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,6 +117,8 @@ public class BatDongSanModify {
             PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, ma);
             statement.execute();
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }

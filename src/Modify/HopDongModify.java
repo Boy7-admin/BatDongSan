@@ -5,8 +5,6 @@
  */
 package Modify;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,6 +45,8 @@ public class HopDongModify {
                         resultSet.getString("NgayTaoHD"));
                 hdlist.add(hopDong);
             }
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,6 +70,8 @@ public class HopDongModify {
             statement.setString(5, hd.getMabds());
             statement.setString(6, hd.getNgaytao());
             statement.execute();
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,6 +95,8 @@ public class HopDongModify {
             statement.setString(6, hd.getNgaytao());
             statement.setString(7, hd.getMa());
             statement.execute();
+            ketNoi.con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,9 +111,11 @@ public class HopDongModify {
         }
         try {
             String sql = "delete from HopDong where MaHD = ?";
-            PreparedStatement statement = ketNoi.con.prepareCall(sql);
-            statement.setString(1, ma);
-            statement.execute();
+            try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
+                statement.setString(1, ma);
+                statement.execute();
+                ketNoi.con.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
