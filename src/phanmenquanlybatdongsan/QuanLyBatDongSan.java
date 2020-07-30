@@ -497,7 +497,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThoat_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoat_BatDongSanActionPerformed
-        this.hide();
+        System.exit(0);
     }//GEN-LAST:event_btnThoat_BatDongSanActionPerformed
 
     private void btnThem_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_BatDongSanActionPerformed

@@ -5,6 +5,7 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.KhachHang;
 import Modify.KetNoi;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,13 +27,10 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     KetNoi ketnoi;
     int index;
+    ArrayList<KhachHang> listKH = new ArrayList<>();
     /**
      * Creates new form QuanLyKhachHang
      */
-//    public void ketnoi() throws ClassNotFoundException, SQLException {
-//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver") ;
-//        con = DriverManager.getConnection(hosting, username, password);
-//    }
     public QuanLyKhachHang() throws ClassNotFoundException {
         initComponents();
         setSize(1000, 540);
@@ -192,6 +191,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         btnSua_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnSua_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
         btnSua_Khachhang.setText("Sửa");
+        btnSua_Khachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua_KhachhangActionPerformed(evt);
+            }
+        });
 
         btnThoat_Khachhang.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnThoat_Khachhang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
@@ -329,8 +333,13 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_KhachhangMouseClicked
 
     private void btnXoa_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_KhachhangActionPerformed
-//        xoa();
+        xoa();
     }//GEN-LAST:event_btnXoa_KhachhangActionPerformed
+
+    private void btnSua_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua_KhachhangActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_btnSua_KhachhangActionPerformed
     
     
     DefaultTableModel myModel;
@@ -349,6 +358,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             String CMND = rs.getString("CMNDKH");
             String Email = rs.getString("EmailKH");
             myModel.addRow(new Object[]{maKH, hoTen, ngaySinh, gioiTinh, SDT, CMND, Email});
+            listKH.add(new KhachHang(maKH, hoTen, ngaySinh, gioiTinh, SDT, CMND, Email));
         }
     }
     
@@ -358,9 +368,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             txtMa_Khachhang.requestFocus(true);
             return false;
         }
-        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
-            String maKH = (String)tbl_Khachhang.getValueAt(i, 0);
-            if(txtMa_Khachhang.getText().equalsIgnoreCase(maKH)){
+        for(KhachHang x : listKH) {
+            if(txtMa_Khachhang.getText().equalsIgnoreCase(x.getMakh())){
                 JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại");
                 txtMa_Khachhang.requestFocus(true);
                 return false;
@@ -395,9 +404,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             txtSoDT_Khachhang.requestFocus(true);
             return false;
         }
-        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
-            String sdt  = (String)tbl_Khachhang.getValueAt(i, 4);
-            if(txtSoDT_Khachhang.getText().equalsIgnoreCase(sdt)){
+        for(KhachHang x : listKH) {
+            if(txtSoDT_Khachhang.getText().equalsIgnoreCase(x.getSodt())){
                 JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
                 txtSoDT_Khachhang.requestFocus(true);
                 return false;
@@ -414,9 +422,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             txtCMND_Khachhang.requestFocus(true);
             return false;
         } 
-        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
-            String cmnd  = (String)tbl_Khachhang.getValueAt(i, 5);
-            if(txtCMND_Khachhang.getText().equalsIgnoreCase(cmnd)){
+        for(KhachHang x : listKH) {
+            if(txtCMND_Khachhang.getText().equalsIgnoreCase(x.getCmnd())){
                 JOptionPane.showMessageDialog(this, "CMND đã tồn tại");
                 txtCMND_Khachhang.requestFocus(true);
                 return false;
@@ -433,9 +440,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             txtEmail_Khachhang.requestFocus(true);
             return false;
         }
-        for(int i = 0; i < tbl_Khachhang.getRowCount();i++) {
-             String email  = (String)tbl_Khachhang.getValueAt(i, 6);
-             if(txtEmail_Khachhang.getText().equalsIgnoreCase(email)){
+        for(KhachHang x : listKH) {
+             if(txtEmail_Khachhang.getText().equalsIgnoreCase(x.getEmail())){
                  JOptionPane.showMessageDialog(this, "Email đã tồn tại");
                  txtEmail_Khachhang.requestFocus(true);
                  return false;
@@ -461,10 +467,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
                 String sql = "INSERT INTO KhachHang " +
                         "VALUES ('"+maKH.trim()+"',N'"+hoTen.trim()+"','"+ngaySinh.trim()+"',N'"+gt.trim()+"','"+SDT.trim()+"','"+CMND.trim()+"','"+Email.trim()+"')";
                 Statement stt = ketnoi.con.createStatement();
-                ResultSet rs = stt.executeQuery(sql);
+                int rs = stt.executeUpdate(sql);
                 myModel.addRow(new Object[] {maKH, hoTen, ngaySinh, gt, SDT,CMND,Email}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
             
         }
@@ -483,19 +490,75 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         txtEmail_Khachhang.setText("");
         txtCMND_Khachhang.setText("");
         txtMa_Khachhang.requestFocus(true);
+        txtMa_Khachhang.setEditable(true);
     }
     
     public void xoa(){
-        int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa");
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa ?");
         if(chon == 0){
-            
+            int index = tbl_Khachhang.getSelectedRow();
+            try {
+                String sql = "Delete KhachHang " +
+                    "Where MaKH = '"+txtMa_Khachhang.getText().trim()+"'";
+            Statement stt = ketnoi.con.createStatement();
+            int rs = stt.executeUpdate(sql);
+            myModel.removeRow(index);
+            JOptionPane.showMessageDialog(this, "Đã Xóa");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Không Thể Xóa Khách Hàng Này !");
+                System.out.println(e);
+            }
         }
     }
    
     public void update() {
-        
+        try {
+           int row = tbl_Khachhang.getSelectedRow();
+           listKH.remove(row);
+           String gioitinhKH;
+           if(rdoNam_Khachhang.isSelected()) {
+                    gioitinhKH = "Nam";
+                }
+                else{gioitinhKH = "Nữ";}
+            KhachHang x = new KhachHang((String)tbl_Khachhang.getValueAt(row, 0), (String)tbl_Khachhang.getValueAt(row, 1), (String)tbl_Khachhang.getValueAt(row, 2), gioitinhKH, (String)tbl_Khachhang.getValueAt(row, 4), (String)tbl_Khachhang.getValueAt(row, 5), (String)tbl_Khachhang.getValueAt(row, 6));
+           if(check()){
+                String maKH = txtMa_Khachhang.getText();
+                String tenKH = txtHoTen_Khachhang.getText();
+                String ngaysinhKH = txtNgaySinh_Khachhang.getText();
+                if(rdoNam_Khachhang.isSelected()) {
+                    gioitinhKH = "Nam";
+                }
+                else{gioitinhKH = "Nữ";}
+                String sdtKH = txtSoDT_Khachhang.getText();
+                String cmndKH = txtCMND_Khachhang.getText();
+                String emailKH = txtEmail_Khachhang.getText();
+                listKH.add(row, new KhachHang(maKH, tenKH, ngaysinhKH, gioitinhKH, sdtKH, cmndKH, emailKH));
+                
+                String sql = "UPDATE KhachHang " +
+                        "SET MaKH ='"+maKH.trim()+"',TenKH =N'"+tenKH.trim()+"',NgaySinhKH ='"+ngaysinhKH.trim()+"',GioiTinhKH =N'"+gioitinhKH.trim()+"',SDTKH ='"+sdtKH.trim()+"',CMNDKH ='"+cmndKH.trim()+"',EmailKH ='"+emailKH.trim()+"' " +
+                        "WHERE MaKH ='"+maKH.trim()+"'";
+                Statement stt = ketnoi.con.createStatement();
+                int rs = stt.executeUpdate(sql); 
+                
+                myModel.setValueAt(txtMa_Khachhang.getText(), row, 0);
+                myModel.setValueAt(txtHoTen_Khachhang.getText(), row, 1);
+                myModel.setValueAt(txtNgaySinh_Khachhang.getText(), row, 2);
+                myModel.setValueAt(gioitinhKH, row, 3);
+                myModel.setValueAt(txtSoDT_Khachhang.getText(), row, 4);
+                myModel.setValueAt(txtCMND_Khachhang.getText(), row, 5);
+                myModel.setValueAt(txtEmail_Khachhang.getText(), row, 6);
+                moi();
+                JOptionPane.showMessageDialog(this, "Đã sửa");
+           }
+           else{
+               listKH.add(row,x);
+           }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
+        }
     }
     public void showDetail() {
+        txtMa_Khachhang.setEditable(false);
         index = tbl_Khachhang.getSelectedRow();
         txtMa_Khachhang.setText((String)myModel.getValueAt(index, 0));
         txtHoTen_Khachhang.setText((String)myModel.getValueAt(index, 1));

@@ -623,10 +623,11 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 String sql = "INSERT INTO NhanVien " +
                     " VALUES ('"+maNV.trim()+"',N'"+tenNV.trim()+"','"+ngaysinhNV.trim() +"',N'"+gioitinhNV.trim()+"','"+sdtNV.trim()+"','"+cmndNV+"','"+emailNV.trim()+"',N'"+chucvuNV.trim()+"','"+luongNV.trim()+"','"+usernameNV.trim()+"','"+passwordNV.trim()+"')"; 
                 Statement stt = ketnoi.con.createStatement();
-                ResultSet rs = stt.executeQuery(sql);
+                int rs = stt.executeUpdate(sql);
                 myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
             
         } 
@@ -683,7 +684,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                list_NhanVien.add(row,x);
            }
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
         }
         
     }
