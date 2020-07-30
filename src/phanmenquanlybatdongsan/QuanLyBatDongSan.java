@@ -6,9 +6,14 @@
 package phanmenquanlybatdongsan;
 
 import Data.BatDongSan;
+import Modify.KetNoi;
 import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -160,29 +165,74 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         }
     }
 
+    KetNoi ketnoi;
+    
     public void sua() {
-        int i = tbl_BatDongSan.getSelectedRow();
-        if (i >= 0) {
-            if (check()) {
-                BatDongSan bds = listBDS.get(i);
-                try {
-                    bds.setMa(txtMa_BatDongSan.getText());
-                    bds.setTen(txtTen_BatDongSan.getText());
-                    bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
-                    bds.setDiachi(txtDiaChi_BatDongSan.getText());
-                    bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
-                    bds.setMota(txtMoTa_BatDongSan.getText());
-                    bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
-                    Modify.BatDongSanModify.update(bds);
-                    fill();
-                    JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
-                } catch (HeadlessException | NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, e);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Chon Bat Dong San can sua");
+        ketnoi = new KetNoi();
+        try {
+            ketnoi.ketnoi();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyBatDongSan.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            int i = tbl_BatDongSan.getSelectedRow();
+            listBDS.remove(i);
+            BatDongSan batDongSan = new BatDongSan(
+                    (String) tbl_BatDongSan.getValueAt(i, 0),
+                    (String) tbl_BatDongSan.getValueAt(i, 1),
+                    (Double) tbl_BatDongSan.getValueAt(i, 2),
+                    (String) tbl_BatDongSan.getValueAt(i, 3),
+                    (String) tbl_BatDongSan.getValueAt(i, 4),
+                    (String) tbl_BatDongSan.getValueAt(i, 5),
+                    (String) tbl_BatDongSan.getValueAt(i, 6));
+            if (check()) {
+                String ma = txtMa_BatDongSan.getText();
+                String ten = txtTen_BatDongSan.getText();
+                String gia = txtGia_BatDongSan.getText();
+                String diachi = txtDiaChi_BatDongSan.getText();
+                String loai = (String) cboLoai_BatDongSan.getSelectedItem();
+                String mota = txtMoTa_BatDongSan.getText();
+                String trangthai = (String) cboTrangThai_BatDongSan.getSelectedItem();
+                listBDS.add(i, new BatDongSan(ma, ten, i, diachi, loai, mota, trangthai));
+                String sql = "UPDATE BatDongSan " + "SET MaBDS = N'"+ma.trim()+"',TenBDS = N'"+ten.trim()+"',GiaBDS ='"+gia.trim()+"',DiaChiBDS = N'"+diachi.trim()+"',LoaiBDS = N'"+loai.trim()+"',MoTaBDS = N'"+mota.trim()+"',TrangThai = N'"+trangthai.trim()+"'";
+                Statement statement = ketnoi.con.createStatement();
+                int a = statement.executeUpdate(sql);
+                model.setValueAt(txtMa_BatDongSan.getText(), i, 0);
+                model.setValueAt(txtTen_BatDongSan.getText(), i, 1);
+                model.setValueAt(txtGia_BatDongSan.getText(), i, 2);
+                model.setValueAt(txtDiaChi_BatDongSan.getText(), i, 3);
+                model.setValueAt(cboLoai_BatDongSan.getSelectedItem(), i, 4);
+                model.setValueAt(txtMoTa_BatDongSan, i, 5);
+                model.setValueAt(cboTrangThai_BatDongSan.getSelectedItem(), i, 6);
+                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+            } else {
+                listBDS.add(i, batDongSan);
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+        }
+//        int i = tbl_BatDongSan.getSelectedRow();
+//        if (i >= 0) {
+//            if (check()) {
+//                BatDongSan bds = listBDS.get(i);
+//                try {
+//                    bds.setMa(txtMa_BatDongSan.getText());
+//                    bds.setTen(txtTen_BatDongSan.getText());
+//                    bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
+//                    bds.setDiachi(txtDiaChi_BatDongSan.getText());
+//                    bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
+//                    bds.setMota(txtMoTa_BatDongSan.getText());
+//                    bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
+//                    Modify.BatDongSanModify.update(bds);
+//                    fill();
+//                    JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
+//                } catch (HeadlessException | NumberFormatException e) {
+//                    JOptionPane.showMessageDialog(this, e);
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Chon Bat Dong San can sua");
+//        }
     }
 
     /**
