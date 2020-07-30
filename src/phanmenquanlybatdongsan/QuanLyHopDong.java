@@ -5,6 +5,9 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.BatDongSan;
+import Data.KhachHang;
+import Data.NhanVien;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +21,10 @@ import javax.swing.table.DefaultTableModel;
  * @author shiro
  */
 public class QuanLyHopDong extends javax.swing.JInternalFrame {
+
+    QuanLyNhanVien qlnv;
+    QuanLyKhachHang qlkh;
+    QuanLyBatDongSan qlbds;
 
     DefaultTableModel model;
     QuanLyHopDong quanLyHopDong;
@@ -57,79 +64,134 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
     }
 
     public boolean check() {
-        listHD = new ArrayList<>();
-        if (txtMaHD_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ma");
-            txtMaHD_HopDong.requestFocus();
-            return false;
-        }
-        for (int i = 0; i < tbl_HopDong.getRowCount(); i++) {
-            String ma = (String) tbl_HopDong.getValueAt(i, 0);
-            if (txtMaHD_HopDong.getText().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Ma hop dong da duoc su dung");
-                txtMaHD_HopDong.requestFocus();
-                txtMaHD_HopDong.setText("");
-                return false;
-
-            }
-        }
-
-        if (txtTenHD_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ten");
-            txtTenHD_HopDong.requestFocus();
-            return false;
-        }
-        if (txtMaNV_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ma nhan vien");
-            txtMaNV_HopDong.requestFocus();
-            return false;
-        }
-        if (txtMaKH_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ma khach hang");
-            txtMaKH_HopDong.requestFocus();
-            return false;
-        }
-        if (txtMaBDS_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ma bat dong san");
-            txtMaBDS_HopDong.requestFocus();
-            return false;
-        }
-        for (int i = 0; i < tbl_HopDong.getRowCount(); i++) {
-            String ma = (String) tbl_HopDong.getValueAt(i, 4);
-            if (txtMaBDS_HopDong.getText().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "bat dong san nay da duoc ban");
-                txtMaBDS_HopDong.requestFocus();
-                txtMaBDS_HopDong.setText("");
-                return false;
-
-            }
-        }
-        if (txtNgayTao_HopDong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Chua nhap ngay tao hop dong");
-            txtNgayTao_HopDong.requestFocus();
-            return false;
-        }
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(txtNgayTao_HopDong.getText());
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Nhap lai ngay tao hop dong");
-            txtNgayTao_HopDong.setText("");
-            txtNgayTao_HopDong.requestFocus();
+
+            qlnv = new QuanLyNhanVien();
+            ArrayList<NhanVien> listNV = qlnv.list_NhanVien;
+
+            qlkh = new QuanLyKhachHang();
+            ArrayList<KhachHang> listKH = qlkh.listKH;
+
+            qlbds = new QuanLyBatDongSan();
+            List<BatDongSan> listBDS = qlbds.listBDS;
+
+            listHD = new ArrayList<>();
+            if (txtMaHD_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ma");
+                txtMaHD_HopDong.requestFocus();
+                return false;
+            }
+            for (int i = 0; i < tbl_HopDong.getRowCount(); i++) {
+                String ma = (String) tbl_HopDong.getValueAt(i, 0);
+                if (txtMaHD_HopDong.getText().equals(ma)) {
+                    JOptionPane.showMessageDialog(this, "Ma hop dong da duoc su dung");
+                    txtMaHD_HopDong.requestFocus();
+                    txtMaHD_HopDong.setText("");
+                    return false;
+
+                }
+            }
+
+            if (txtTenHD_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ten");
+                txtTenHD_HopDong.requestFocus();
+                return false;
+            }
+            if (txtMaNV_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ma nhan vien");
+                txtMaNV_HopDong.requestFocus();
+                return false;
+            }
+            int a = 0;
+            for (int i = 0; i < listNV.size(); i++) {
+                if (listNV.get(i).getMa().equalsIgnoreCase(txtMaNV_HopDong.getText())) {
+                    a++;
+                }
+            }
+            if (a == 0) {
+                JOptionPane.showMessageDialog(qlnv, "Ma nhan vien khong ton tai");
+                System.out.println(listNV.size());
+                txtMaNV_HopDong.setText("");
+                txtMaNV_HopDong.requestFocus();
+                return false;
+            }
+            if (txtMaKH_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ma khach hang");
+                txtMaKH_HopDong.requestFocus();
+                return false;
+            }
+            int b = 0;
+            for (int i = 0; i < listKH.size(); i++) {
+                if (listKH.get(i).getMakh().equalsIgnoreCase(txtMaKH_HopDong.getText())) {
+                    b++;
+                }
+            }
+            if (b == 0) {
+                JOptionPane.showMessageDialog(qlkh, "Ma khach hang khong ton tai");
+                txtMaKH_HopDong.setText("");
+                txtMaKH_HopDong.requestFocus();
+                return false;
+            }
+            if (txtMaBDS_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ma bat dong san");
+                txtMaBDS_HopDong.requestFocus();
+                return false;
+            }
+            int c = 0;
+            for (int i = 0; i < listBDS.size(); i++) {
+                if (listBDS.get(i).getMa().equalsIgnoreCase(txtMaBDS_HopDong.getText())) {
+                    c++;
+                }
+            }
+            if (c == 0) {
+                JOptionPane.showMessageDialog(qlbds, "Ma bat dong san khong ton tai");
+                txtMaBDS_HopDong.setText("");
+                txtMaBDS_HopDong.requestFocus();
+                return false;
+            }
+            for (int i = 0; i < tbl_HopDong.getRowCount(); i++) {
+                String ma = (String) tbl_HopDong.getValueAt(i, 4);
+                if (txtMaBDS_HopDong.getText().equals(ma)) {
+                    JOptionPane.showMessageDialog(this, "bat dong san nay da duoc ban");
+                    txtMaBDS_HopDong.requestFocus();
+                    txtMaBDS_HopDong.setText("");
+                    return false;
+                }
+            }
+            if (txtNgayTao_HopDong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Chua nhap ngay tao hop dong");
+                txtNgayTao_HopDong.requestFocus();
+                return false;
+            }
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(txtNgayTao_HopDong.getText());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Nhap lai ngay tao hop dong");
+                txtNgayTao_HopDong.setText("");
+                txtNgayTao_HopDong.requestFocus();
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     public void them() {
-        if (check()) {
-            Data.HopDong hopDong = new Data.HopDong(txtMaHD_HopDong.getText(),
-                    txtTenHD_HopDong.getText(),
-                    txtMaNV_HopDong.getText(),
-                    txtMaKH_HopDong.getText(),
-                    txtMaBDS_HopDong.getText(),
-                    txtNgayTao_HopDong.getText());
-            Modify.HopDongModify.insert(hopDong);
-            fill();
+        try {
+
+            if (check()) {
+                Data.HopDong hopDong = new Data.HopDong(txtMaHD_HopDong.getText(),
+                        txtTenHD_HopDong.getText(),
+                        txtMaNV_HopDong.getText(),
+                        txtMaKH_HopDong.getText(),
+                        txtMaBDS_HopDong.getText(),
+                        txtNgayTao_HopDong.getText());
+                Modify.HopDongModify.insert(hopDong);
+                fill();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(qlnv, "Loi ngay tao hop dong");
         }
     }
 

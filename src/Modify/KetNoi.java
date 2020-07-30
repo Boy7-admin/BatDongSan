@@ -44,15 +44,12 @@ public class KetNoi {
 
         try {
             ketnoi1();
-            System.out.println("ket noi 1 thanh cong");
         } catch (Exception e) {
             try {
                 ketnoi2();
-                System.out.println("ket noi 2 thanh cong");
             } catch (SQLException ex) {
                 try {
                     ketnoi3();
-                    System.out.println("ket noi 3 thanh cong");
                 } catch (SQLException ex1) {
                     System.out.println("Ket noi that bai");
                 }

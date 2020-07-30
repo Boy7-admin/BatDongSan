@@ -32,22 +32,22 @@ public class BatDongSanModify {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Statement statement = ketNoi.con.createStatement();
-            String sql = "select * from BatDongSan";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-                Data.BatDongSan batDongSan = new Data.BatDongSan(resultSet.getString("MaBDS"),
-                        resultSet.getString("TenBDS"),
-                        resultSet.getDouble("GiaBDS"),
-                        resultSet.getString("DiaChiBDS"),
-                        resultSet.getString("LoaiBDS"),
-                        resultSet.getString("MotaBDS"),
-                        resultSet.getString("TrangThai"));
-                bdslist.add(batDongSan);
+            try (Statement statement = ketNoi.con.createStatement()) {
+                String sql = "select * from BatDongSan";
+                ResultSet resultSet = statement.executeQuery(sql);
+                
+                while (resultSet.next()) {
+                    Data.BatDongSan batDongSan = new Data.BatDongSan(resultSet.getString("MaBDS"),
+                            resultSet.getString("TenBDS"),
+                            resultSet.getDouble("GiaBDS"),
+                            resultSet.getString("DiaChiBDS"),
+                            resultSet.getString("LoaiBDS"),
+                            resultSet.getString("MotaBDS"),
+                            resultSet.getString("TrangThai"));
+                    bdslist.add(batDongSan);
+                }
+                ketNoi.con.close();
             }
-            ketNoi.con.close();
-            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,17 +63,17 @@ public class BatDongSanModify {
         }
         try {
             String sql = "insert into batDongSan values (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = ketNoi.con.prepareCall(sql);
-            statement.setString(1, bds.getMa());
-            statement.setString(2, bds.getTen());
-            statement.setString(3, String.valueOf(bds.getGia()));
-            statement.setString(4, bds.getDiachi());
-            statement.setString(5, bds.getLoai());
-            statement.setString(6, bds.getMota());
-            statement.setString(7, bds.getTrangthai());
-            statement.execute();
-            ketNoi.con.close();
-            statement.close();
+            try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
+                statement.setString(1, bds.getMa());
+                statement.setString(2, bds.getTen());
+                statement.setString(3, String.valueOf(bds.getGia()));
+                statement.setString(4, bds.getDiachi());
+                statement.setString(5, bds.getLoai());
+                statement.setString(6, bds.getMota());
+                statement.setString(7, bds.getTrangthai());
+                statement.execute();
+                ketNoi.con.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,18 +88,18 @@ public class BatDongSanModify {
         }
         try {
             String sql = "update BatDongSan set MaBDS = ?, TenBDS = ?, GiaBDS = ?, DiaChiBDS = ?, LoaiBDS = ?, MotaBDS = ?, TrangThai = ? where MaBDS = ?";
-            PreparedStatement statement = ketNoi.con.prepareStatement(sql);
-            statement.setString(1, bds.getMa());
-            statement.setString(2, bds.getTen());
-            statement.setString(3, String.valueOf(bds.getGia()));
-            statement.setString(4, bds.getDiachi());
-            statement.setString(5, bds.getLoai());
-            statement.setString(6, bds.getMota());
-            statement.setString(7, bds.getTrangthai());
-            statement.setString(8, bds.getMa());
-            statement.executeUpdate();
-            ketNoi.con.close();
-            statement.close();
+            try (PreparedStatement statement = ketNoi.con.prepareStatement(sql)) {
+                statement.setString(1, bds.getMa());
+                statement.setString(2, bds.getTen());
+                statement.setString(3, String.valueOf(bds.getGia()));
+                statement.setString(4, bds.getDiachi());
+                statement.setString(5, bds.getLoai());
+                statement.setString(6, bds.getMota());
+                statement.setString(7, bds.getTrangthai());
+                statement.setString(8, bds.getMa());
+                statement.executeUpdate();
+                ketNoi.con.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,11 +114,11 @@ public class BatDongSanModify {
         }
         try {
             String sql = "delete from BatDongSan where MaBDS = ?";
-            PreparedStatement statement = ketNoi.con.prepareCall(sql);
-            statement.setString(1, ma);
-            statement.execute();
-            ketNoi.con.close();
-            statement.close();
+            try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
+                statement.setString(1, ma);
+                statement.execute();
+                ketNoi.con.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
         }

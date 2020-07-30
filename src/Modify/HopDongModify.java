@@ -69,7 +69,7 @@ public class HopDongModify {
             statement.setString(4, hd.getMakh());
             statement.setString(5, hd.getMabds());
             statement.setString(6, hd.getNgaytao());
-            statement.execute();
+            statement.executeUpdate();
             ketNoi.con.close();
             statement.close();
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class HopDongModify {
             statement.setString(5, hd.getMabds());
             statement.setString(6, hd.getNgaytao());
             statement.setString(7, hd.getMa());
-            statement.execute();
+            statement.executeUpdate();
             ketNoi.con.close();
             statement.close();
         } catch (SQLException ex) {
@@ -113,7 +113,7 @@ public class HopDongModify {
             String sql = "delete from HopDong where MaHD = ?";
             try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
                 statement.setString(1, ma);
-                statement.execute();
+                statement.executeUpdate();
                 ketNoi.con.close();
             }
         } catch (SQLException ex) {

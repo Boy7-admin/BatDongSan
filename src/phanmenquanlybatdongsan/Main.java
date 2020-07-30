@@ -17,11 +17,11 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        menuKH.setEnabled(false);
-        menuHD.setEnabled(false);
-        menuBDS.setEnabled(false);
-        menuNV.setEnabled(false);
-        menuTK.setEnabled(false);
+//        menuKH.setEnabled(false);
+//        menuHD.setEnabled(false);
+//        menuBDS.setEnabled(false);
+//        menuNV.setEnabled(false);
+//        menuTK.setEnabled(false);
     }
 
     public void openMain() {
@@ -82,6 +82,7 @@ public class Main extends javax.swing.JFrame{
         jMenuBar1.add(mLogin);
 
         jMenu1.setText("Quản Lý");
+        jMenu1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         menuNV.setText("Quản lý nhân viên");
         menuNV.addActionListener(new java.awt.event.ActionListener() {
