@@ -370,10 +370,17 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
         // TODO add your handling code here:
         showDetail();
+        txtMa_NhanVien.setEditable(false);
     }//GEN-LAST:event_tbl_NhanVienMouseClicked
 
     private void btnXoa_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_NhanVienActionPerformed
-       
+        try {
+            xoa();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXoa_NhanVienActionPerformed
 
     private void btnMoi_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_NhanVienActionPerformed
@@ -463,7 +470,18 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     public void xoa() throws SQLException, ClassNotFoundException {
         int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa ?");
         if(chon == 0){
-            
+            int index = tbl_NhanVien.getSelectedRow();
+            try {
+                String sql = "Delete NhanVien " +
+                    "Where MaNV = '"+txtMa_NhanVien.getText().trim()+"'";
+            Statement stt = ketnoi.con.createStatement();
+            int rs = stt.executeUpdate(sql);
+            myModel.removeRow(index);
+            JOptionPane.showMessageDialog(this, "Đã Xóa");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Không Thể Xóa Nhân Viên Này !");
+                System.out.println(e);
+            }
         }
     }
     
