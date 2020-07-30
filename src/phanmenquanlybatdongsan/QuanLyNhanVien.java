@@ -5,12 +5,14 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.NhanVien;
 import Modify.KetNoi;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     KetNoi ketnoi;
+    ArrayList<NhanVien> list_NhanVien = new ArrayList<>();
     /**
      * Creates new form QuanLyNhanVien
      */
@@ -367,7 +370,6 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
         // TODO add your handling code here:
         showDetail();
-        maNV_cu = txtMa_NhanVien.getText();
     }//GEN-LAST:event_tbl_NhanVienMouseClicked
 
     private void btnXoa_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_NhanVienActionPerformed
@@ -411,6 +413,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             
             
             myModel.addRow(new Object[] {maNV,tenNV,ngaysinhNV,gioiTinhNV,sdtNV,cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV});
+            list_NhanVien.add(new NhanVien(maNV,tenNV,ngaysinhNV,gioiTinhNV,sdtNV,cmndNV,emailNV,chucvuNV,Double.parseDouble(luongNV),usernameNV,passwordNV));
         }
     }
 
@@ -468,9 +471,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Không để trống mã Nhân Viên");
             return false;
         }
-        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
-            String maKH = (String)tbl_NhanVien.getValueAt(i, 0);
-            if(txtMa_NhanVien.getText().equalsIgnoreCase(maKH)){
+        for(NhanVien x : list_NhanVien) {
+            if(txtMa_NhanVien.getText().equalsIgnoreCase(x.getMa())){
                 JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại");
                 txtMa_NhanVien.requestFocus(true);
                 return false;
@@ -506,9 +508,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             txtSoDT_NhanVien.requestFocus(true);
             return false;
         }
-        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
-            String sdt  = (String)tbl_NhanVien.getValueAt(i, 4);
-            if(txtSoDT_NhanVien.getText().equalsIgnoreCase(sdt)){
+        for(NhanVien x : list_NhanVien) {
+            if(txtSoDT_NhanVien.getText().equalsIgnoreCase(x.getSodt())){
                 JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
                 txtSoDT_NhanVien.requestFocus(true);
                 return false;
@@ -525,9 +526,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             txtCMND_NhanVien.requestFocus(true);
             return false;
         } 
-        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
-            String cmnd  = (String)tbl_NhanVien.getValueAt(i, 5);
-            if(txtCMND_NhanVien.getText().equalsIgnoreCase(cmnd)){
+        for(NhanVien x : list_NhanVien) {
+            if(txtCMND_NhanVien.getText().equalsIgnoreCase(x.getCmnd())){
                 JOptionPane.showMessageDialog(this, "CMND đã tồn tại");
                 txtCMND_NhanVien.requestFocus(true);
                 return false;
@@ -544,9 +544,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             txtEmail_NhanVien.requestFocus(true);
             return false;
         }
-        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
-             String email  = (String)tbl_NhanVien.getValueAt(i, 6);
-             if(txtEmail_NhanVien.getText().equalsIgnoreCase(email)){
+        for(NhanVien x : list_NhanVien) {
+             if(txtEmail_NhanVien.getText().equalsIgnoreCase(x.getEmail())){
                  JOptionPane.showMessageDialog(this, "Email đã tồn tại");
                  txtEmail_NhanVien.requestFocus(true);
                  return false;
@@ -569,9 +568,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Không để trống Username");
             return false;
         }
-        for(int i = 0; i < tbl_NhanVien.getRowCount();i++) {
-             String username  = (String)tbl_NhanVien.getValueAt(i, 9);
-             if(txtUsername_NhanVien.getText().equalsIgnoreCase(username)){
+        for(NhanVien x : list_NhanVien) {
+             if(txtUsername_NhanVien.getText().equalsIgnoreCase(x.getUsername())){
                  JOptionPane.showMessageDialog(this, "Username đã tồn tại");
                  txtUsername_NhanVien.requestFocus(true);
                  return false;
@@ -615,20 +613,20 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         } 
        
     }
-    
-    String maNV_cu;
     public void sua() throws SQLException {
         try {
-            int row = tbl_NhanVien.getSelectedRow();
-                int column = tbl_NhanVien.getColumnCount();
-                for(int i = 0; i <= column-1; i++){
-                    myModel.setValueAt("", row, i);
+           int row = tbl_NhanVien.getSelectedRow();
+           list_NhanVien.remove(row);
+           String gioitinhNV;
+           if(rdoNam_NhanVien.isSelected()) {
+                    gioitinhNV = "Nam";
                 }
-            if(check()) {
+                else{gioitinhNV = "Nữ";}
+           NhanVien x = new NhanVien((String)tbl_NhanVien.getValueAt(row, 0), (String)tbl_NhanVien.getValueAt(row, 1), gioitinhNV, (String)tbl_NhanVien.getValueAt(row, 3), (String)tbl_NhanVien.getValueAt(row, 4), (String)tbl_NhanVien.getValueAt(row, 5), (String)tbl_NhanVien.getValueAt(row, 6), (String)tbl_NhanVien.getValueAt(row, 7), Double.parseDouble((String)tbl_NhanVien.getValueAt(row, 8)), (String)tbl_NhanVien.getValueAt(row, 9), (String)tbl_NhanVien.getValueAt(row, 10));
+           if(check()){
                 String maNV = txtMa_NhanVien.getText();
                 String tenNV = txtHoTen_NhanVien.getText();
                 String ngaysinhNV = txtNgaySinh_NhanVien.getText();
-                String gioitinhNV;
                 if(rdoNam_NhanVien.isSelected()) {
                     gioitinhNV = "Nam";
                 }
@@ -640,7 +638,14 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 String luongNV = txtLuong_NhanVien.getText();
                 String usernameNV = txtUsername_NhanVien.getText();
                 String passwordNV = txtPassword_NhanVien.getText();
-
+                list_NhanVien.add(row, new NhanVien(maNV, sdtNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV, emailNV, chucvuNV, Double.parseDouble(luongNV), usernameNV, passwordNV));
+                
+                
+                String sql = "UPDATE NhanVien " +
+                        "SET MaNV ='"+maNV.trim()+"',TenNV =N'"+tenNV.trim()+"',NgaySinhNV ='"+ngaysinhNV.trim()+"',GioiTinhNV =N'"+gioitinhNV.trim()+"',SDTNV ='"+sdtNV.trim()+"',CMNDNV ='"+cmndNV.trim()+"',EmailNV ='"+emailNV.trim()+"',ChucVuNV =N'"+chucvuNV.trim()+"',LuongNv ='"+luongNV.trim()+"',UsernameNV= '"+usernameNV.trim()+"',PasswordNV ='"+passwordNV.trim()+"' " +
+                        "WHERE MaNV ='"+maNV.trim()+"'";
+                Statement stt = ketnoi.con.createStatement();
+                int rs = stt.executeUpdate(sql);    
                 myModel.setValueAt(txtMa_NhanVien.getText(), row, 0);
                 myModel.setValueAt(txtHoTen_NhanVien.getText(), row, 1);
                 myModel.setValueAt(txtNgaySinh_NhanVien.getText(), row, 2);
@@ -652,16 +657,16 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 myModel.setValueAt(txtLuong_NhanVien.getText(), row, 8);
                 myModel.setValueAt(txtUsername_NhanVien.getText(), row, 9);
                 myModel.setValueAt(txtPassword_NhanVien.getText(), row, 10);
-
-                String sql = "UPDATE NhanVien " +
-                        "SET MaNV ='"+maNV.trim()+"',TenNV =N'"+tenNV.trim()+"',NgaySinhNV ='"+ngaysinhNV.trim()+"',GioiTinhNV =N'"+gioitinhNV.trim()+"',SDTNV ='"+sdtNV.trim()+"',CMNDNV ='"+cmndNV.trim()+"',EmailNV ='"+emailNV.trim()+"',ChucVuNV =N'"+chucvuNV.trim()+"',LuongNv ='"+luongNV.trim()+"',UsernameNV= '"+usernameNV.trim()+"',PasswordNV ='"+passwordNV.trim()+"' " +
-                        "WHERE MaNV ='"+maNV_cu.trim()+"'";
-                Statement stt = ketnoi.con.createStatement();
-                ResultSet rs = stt.executeQuery(sql);     
                 clearForm();
-            }
+                JOptionPane.showMessageDialog(this, "Đã sửa");
+           }
+           else{
+               list_NhanVien.add(row,x);
+           }
         } catch (Exception e) {
+            System.out.println(e);
         }
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
