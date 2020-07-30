@@ -444,6 +444,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     
     public void clearForm() {
         txtMa_NhanVien.setText("");
+        txtMa_NhanVien.setEditable(true);
         txtHoTen_NhanVien.setText("");
         txtNgaySinh_NhanVien.setText("");
         rdoNam_NhanVien.setSelected(true);
