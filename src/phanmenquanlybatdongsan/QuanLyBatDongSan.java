@@ -268,7 +268,6 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         cboLoai_BatDongSan = new javax.swing.JComboBox<>();
         cboTrangThai_BatDongSan = new javax.swing.JComboBox<>();
 
-        setClosable(true);
         setResizable(true);
         setTitle("Quản Lý Bất Động Sản");
         setPreferredSize(new java.awt.Dimension(1000, 540));
@@ -330,7 +329,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem_BatDongSan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThem_BatDongSan.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\add.png")); // NOI18N
+        btnThem_BatDongSan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         btnThem_BatDongSan.setText("Thêm");
         btnThem_BatDongSan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +338,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         });
 
         btnXoa_BatDongSan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnXoa_BatDongSan.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\delete.png")); // NOI18N
+        btnXoa_BatDongSan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnXoa_BatDongSan.setText("Xoá");
         btnXoa_BatDongSan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +347,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         });
 
         btnMoi_BatDongSan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoi_BatDongSan.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\clear.png")); // NOI18N
+        btnMoi_BatDongSan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
         btnMoi_BatDongSan.setText("Mới");
         btnMoi_BatDongSan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,7 +356,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         });
 
         btnSua_BatDongSan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnSua_BatDongSan.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\edit.png")); // NOI18N
+        btnSua_BatDongSan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
         btnSua_BatDongSan.setText("Sửa");
         btnSua_BatDongSan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,7 +365,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         });
 
         btnThoat_BatDongSan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnThoat_BatDongSan.setIcon(new javax.swing.ImageIcon("C:\\Users\\shiro\\Desktop\\polyLab\\netbean-project\\PhanMenQuanLyBatDongSan\\img\\exit.png")); // NOI18N
+        btnThoat_BatDongSan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         btnThoat_BatDongSan.setText("Thoát");
         btnThoat_BatDongSan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,7 +496,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThoat_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoat_BatDongSanActionPerformed
-        System.exit(0);
+        this.hide();
     }//GEN-LAST:event_btnThoat_BatDongSanActionPerformed
 
     private void btnThem_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_BatDongSanActionPerformed

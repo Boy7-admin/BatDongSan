@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author admin
  */
-public class ThongKe1 extends javax.swing.JInternalFrame {
+public final class ThongKe1 extends javax.swing.JInternalFrame {
 
     KetNoi ketNoi;
 
@@ -32,8 +32,8 @@ public class ThongKe1 extends javax.swing.JInternalFrame {
         setTitle("Thống Kê");
         try {
             FillToTable("select * from BatDongSan");
-//            cbxLoaiBDS();
-
+            cbxLoaiBDS();
+            cboTrangThaibds.setSelectedIndex(1);
         } catch (SQLException ex) {
             Logger.getLogger(ThongKe1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,6 +106,7 @@ public class ThongKe1 extends javax.swing.JInternalFrame {
         jTable1.setRowHeight(30);
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jButton1.setText("Thoát");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +132,7 @@ public class ThongKe1 extends javax.swing.JInternalFrame {
                         .addComponent(cboTrangThaibds, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addComponent(lblSoLuongBDS, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -156,7 +157,7 @@ public class ThongKe1 extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        this.hide();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cboLoaiBDSItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLoaiBDSItemStateChanged

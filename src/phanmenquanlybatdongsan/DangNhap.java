@@ -6,8 +6,6 @@
 package phanmenquanlybatdongsan;
 
 import Modify.KetNoi;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,6 +21,8 @@ public class DangNhap extends javax.swing.JInternalFrame {
     KetNoi ketnoi;
     /**
      * Creates new form Login
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public void ketnoi() throws ClassNotFoundException, SQLException {
         ketnoi = new KetNoi();
@@ -39,22 +39,20 @@ public class DangNhap extends javax.swing.JInternalFrame {
             String chucvuNV = rs.getString("ChucVuNV");
             listAcc.add(new Data.Account(usernameNV, passwordNV, chucvuNV));
         }
-        for(Data.Account x : listAcc) {
-            if(txtUsername_DangNhap.getText().equalsIgnoreCase(x.getUsernameNV())&&pwdPassword_DangNhap.getText().equalsIgnoreCase(x.getPasswordNV())){
-                if(x.getChucvuNV().equalsIgnoreCase("Quản Lý")){
-                    Main mainview = new Main();
-                    mainview.close();
-                    mainview.opendquanly();
-                    mainview.setVisible(true); 
-                }
-                else if(x.getChucvuNV().equalsIgnoreCase("Nhân viên")){
-                    Main mainview = new Main();
-                    mainview.close();
-                    mainview.opennhanvien();
-                    mainview.setVisible(true); 
-                }
+        listAcc.stream().filter((x) -> (txtUsername_DangNhap.getText().equalsIgnoreCase(x.getUsernameNV())&&pwdPassword_DangNhap.getText().equalsIgnoreCase(x.getPasswordNV()))).forEachOrdered((x) -> {
+            if(x.getChucvuNV().equalsIgnoreCase("Quản Lý")){
+                Main mainview = new Main();
+                mainview.close();
+                mainview.opendquanly();
+                mainview.setVisible(true);
             }
-        }
+            else if(x.getChucvuNV().equalsIgnoreCase("Nhân viên")){
+                Main mainview = new Main();
+                mainview.close();
+                mainview.opennhanvien();
+                mainview.setVisible(true);
+            }
+        });
     }
     
     public DangNhap() {
@@ -724,9 +722,7 @@ public class DangNhap extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             ketnoi();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
         }
         

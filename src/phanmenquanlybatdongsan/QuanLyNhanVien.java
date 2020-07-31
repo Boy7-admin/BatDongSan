@@ -7,10 +7,12 @@ package phanmenquanlybatdongsan;
 
 import Data.NhanVien;
 import Modify.KetNoi;
+import java.awt.HeadlessException;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class QuanLyNhanVien extends javax.swing.JInternalFrame {
+public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
     KetNoi ketnoi;
     ArrayList<NhanVien> list_NhanVien = new ArrayList<>();
     /**
@@ -360,7 +362,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThoat_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoat_NhanVienActionPerformed
-        System.exit(0);
+        this.hide();
     }//GEN-LAST:event_btnThoat_NhanVienActionPerformed
 
     private void btnThem_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_NhanVienActionPerformed
@@ -376,9 +378,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
     private void btnXoa_NhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_NhanVienActionPerformed
         try {
             xoa();
-        } catch (SQLException ex) {
-            Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoa_NhanVienActionPerformed
@@ -478,7 +478,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
             int rs = stt.executeUpdate(sql);
             myModel.removeRow(index);
             JOptionPane.showMessageDialog(this, "Đã Xóa");
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Không Thể Xóa Nhân Viên Này !");
                 System.out.println(e);
             }
@@ -511,7 +511,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         Date date = null;
         try {
            date = new SimpleDateFormat("dd-MM-yyyy").parse(txtNgaySinh_NhanVien.getText());
-        } catch (Exception e) {
+        } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng đính dạng yyyy-MM-dd");
             return false;
         }
@@ -577,7 +577,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         }
         try {
             float luong = Float.parseFloat(txtLuong_NhanVien.getText());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Lương phải là số");
             return false;
         }
@@ -626,7 +626,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 int rs = stt.executeUpdate(sql);
                 myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
             
@@ -683,7 +683,7 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
            else{
                list_NhanVien.add(row,x);
            }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
         }
         

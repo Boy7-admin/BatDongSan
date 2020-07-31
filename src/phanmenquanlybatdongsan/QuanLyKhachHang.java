@@ -7,11 +7,11 @@ package phanmenquanlybatdongsan;
 
 import Data.KhachHang;
 import Modify.KetNoi;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,12 +24,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class QuanLyKhachHang extends javax.swing.JInternalFrame {
+public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
     KetNoi ketnoi;
     int index;
     ArrayList<KhachHang> listKH = new ArrayList<>();
     /**
      * Creates new form QuanLyKhachHang
+     * @throws java.lang.ClassNotFoundException
      */
     public QuanLyKhachHang() throws ClassNotFoundException {
         initComponents();
@@ -314,7 +315,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThoat_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoat_KhachhangActionPerformed
-        System.exit(0);
+        this.hide();
     }//GEN-LAST:event_btnThoat_KhachhangActionPerformed
 
     private void btnThem_KhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_KhachhangActionPerformed
@@ -388,7 +389,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         Date date = null;
         try {
            date = new SimpleDateFormat("dd-MM-yyyy").parse(txtNgaySinh_Khachhang.getText());
-        } catch (Exception e) {
+        } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng đính dạng yyyy-MM-dd");
             return false;
         }
@@ -470,7 +471,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
                 int rs = stt.executeUpdate(sql);
                 myModel.addRow(new Object[] {maKH, hoTen, ngaySinh, gt, SDT,CMND,Email}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
             
@@ -496,15 +497,15 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     public void xoa(){
         int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa ?");
         if(chon == 0){
-            int index = tbl_Khachhang.getSelectedRow();
+            int i = tbl_Khachhang.getSelectedRow();
             try {
                 String sql = "Delete KhachHang " +
                     "Where MaKH = '"+txtMa_Khachhang.getText().trim()+"'";
             Statement stt = ketnoi.con.createStatement();
             int rs = stt.executeUpdate(sql);
-            myModel.removeRow(index);
+            myModel.removeRow(i);
             JOptionPane.showMessageDialog(this, "Đã Xóa");
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Không Thể Xóa Khách Hàng Này !");
                 System.out.println(e);
             }
@@ -553,7 +554,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
            else{
                listKH.add(row,x);
            }
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
         }
     }

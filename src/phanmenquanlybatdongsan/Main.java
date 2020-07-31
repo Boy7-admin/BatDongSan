@@ -17,11 +17,11 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-//        menuKH.setEnabled(false);
-//        menuHD.setEnabled(false);
-//        menuBDS.setEnabled(false);
-//        menuNV.setEnabled(false);
-//        menuTK.setEnabled(false);
+        menuKH.setEnabled(false);
+        menuHD.setEnabled(false);
+        menuBDS.setEnabled(false);
+        menuNV.setEnabled(false);
+        menuTK.setEnabled(false);
     }
 
     public void openMain() {
@@ -57,15 +57,16 @@ public class Main extends javax.swing.JFrame{
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1003, Short.MAX_VALUE)
+            .addGap(0, 998, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
 
         jMenuBar1.setName(""); // NOI18N
 
+        mLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.png"))); // NOI18N
         mLogin.setText("Đăng Nhập");
         mLogin.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         mLogin.setMargin(new java.awt.Insets(2, 5, 2, 5));
@@ -81,9 +82,11 @@ public class Main extends javax.swing.JFrame{
         });
         jMenuBar1.add(mLogin);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/QuanLyMenu-removebg-preview.png"))); // NOI18N
         jMenu1.setText("Quản Lý");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        menuNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NhanVien-removebg-preview.png"))); // NOI18N
         menuNV.setText("Quản lý nhân viên");
         menuNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +95,7 @@ public class Main extends javax.swing.JFrame{
         });
         jMenu1.add(menuNV);
 
+        menuBDS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/HopDong-removebg-preview.png"))); // NOI18N
         menuBDS.setText("Quản lý bất động sản");
         menuBDS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +104,7 @@ public class Main extends javax.swing.JFrame{
         });
         jMenu1.add(menuBDS);
 
+        menuHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/HopDong-removebg-preview.png"))); // NOI18N
         menuHD.setText("Quản lý hợp đồng");
         menuHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +113,7 @@ public class Main extends javax.swing.JFrame{
         });
         jMenu1.add(menuHD);
 
+        menuKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/KhachHang-removebg-preview.png"))); // NOI18N
         menuKH.setText("Quản lý khách hàng");
         menuKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +122,7 @@ public class Main extends javax.swing.JFrame{
         });
         jMenu1.add(menuKH);
 
+        menuTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Thống_kê-removebg-preview.png"))); // NOI18N
         menuTK.setText("Thống Kê");
         menuTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,17 +139,17 @@ public class Main extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(desktop)
-                .addContainerGap())
+                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(desktop)
-                .addContainerGap())
+                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
