@@ -17,11 +17,11 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        menuKH.setEnabled(false);
-        menuHD.setEnabled(false);
-        menuBDS.setEnabled(false);
-        menuNV.setEnabled(false);
-        menuTK.setEnabled(false);
+//        menuKH.setEnabled(false);
+//        menuHD.setEnabled(false);
+//        menuBDS.setEnabled(false);
+//        menuNV.setEnabled(false);
+//        menuTK.setEnabled(false);
     }
 
     public void openMain() {

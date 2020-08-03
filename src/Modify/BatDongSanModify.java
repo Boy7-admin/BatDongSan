@@ -5,6 +5,7 @@
  */
 package Modify;
 
+import Data.BatDongSan;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class BatDongSanModify {
 
     public static KetNoi ketNoi;
 
-    public static List<Data.BatDongSan> filltoTable() {
+    public static List<BatDongSan> filltoTable() {
 
         List<Data.BatDongSan> bdslist = new ArrayList<>();
         try {
@@ -46,7 +47,7 @@ public class BatDongSanModify {
                             resultSet.getString("TrangThai"));
                     bdslist.add(batDongSan);
                 }
-                ketNoi.con.close();
+//                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +55,7 @@ public class BatDongSanModify {
         return bdslist;
     }
 
-    public static void insert(Data.BatDongSan bds) {
+    public static void insert(BatDongSan bds) {
         try {
             ketNoi = new KetNoi();
             ketNoi.ketnoi();
@@ -72,14 +73,14 @@ public class BatDongSanModify {
                 statement.setString(6, bds.getMota());
                 statement.setString(7, bds.getTrangthai());
                 statement.execute();
-                ketNoi.con.close();
+//                ketNoi.con.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("Loi chuyen doi gia: " + ex);
         }
     }
 
-    public static void update(Data.BatDongSan bds) {
+    public static void update(BatDongSan bds, String bds1) {
         try {
             ketNoi = new KetNoi();
             ketNoi.ketnoi();
@@ -96,9 +97,9 @@ public class BatDongSanModify {
                 statement.setString(5, bds.getLoai());
                 statement.setString(6, bds.getMota());
                 statement.setString(7, bds.getTrangthai());
-                statement.setString(8, bds.getMa());
+                statement.setString(8, bds1);
                 statement.executeUpdate();
-                ketNoi.con.close();
+//                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,7 +118,7 @@ public class BatDongSanModify {
             try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
                 statement.setString(1, ma);
                 statement.execute();
-                ketNoi.con.close();
+//                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
