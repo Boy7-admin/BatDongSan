@@ -5,6 +5,7 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.PicPanel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +18,9 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
+        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\FPT_DaoTao\\img\\bg.jpg");
+        pic.setBounds(0, 0, 1000, 700);
+        desktop.add(pic);
 //        menuKH.setEnabled(false);
 //        menuHD.setEnabled(false);
 //        menuBDS.setEnabled(false);
@@ -155,6 +159,7 @@ public class Main extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void mLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mLoginMouseClicked
         // TODO add your handling code here:
             DangNhap login = new DangNhap();
@@ -211,15 +216,14 @@ public class Main extends javax.swing.JFrame{
         desktop.add(tk);
         tk.setVisible(true);
     }//GEN-LAST:event_menuTKActionPerformed
-    public void close() {
-        main.setVisible(false);
-    }
+
     
     public void opennhanvien() {
         menuKH.setEnabled(true);
         menuHD.setEnabled(true);
         menuBDS.setEnabled(false);
         menuNV.setEnabled(false);
+        
     }
     public void opendquanly() {
         menuKH.setEnabled(false);
@@ -227,6 +231,7 @@ public class Main extends javax.swing.JFrame{
         menuBDS.setEnabled(true);
         menuNV.setEnabled(true);
         menuTK.setEnabled(true);
+        
     }
     
     

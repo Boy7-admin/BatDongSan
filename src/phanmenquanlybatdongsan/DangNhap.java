@@ -5,6 +5,7 @@
  */
 package phanmenquanlybatdongsan;
 
+import Data.PicPanel;
 import Modify.KetNoi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,13 +43,11 @@ public class DangNhap extends javax.swing.JInternalFrame {
         listAcc.stream().filter((x) -> (txtUsername_DangNhap.getText().equalsIgnoreCase(x.getUsernameNV())&&pwdPassword_DangNhap.getText().equalsIgnoreCase(x.getPasswordNV()))).forEachOrdered((x) -> {
             if(x.getChucvuNV().equalsIgnoreCase("Quản Lý")){
                 Main mainview = new Main();
-                mainview.close();
                 mainview.opendquanly();
                 mainview.setVisible(true);
             }
             else if(x.getChucvuNV().equalsIgnoreCase("Nhân viên")){
                 Main mainview = new Main();
-                mainview.close();
                 mainview.opennhanvien();
                 mainview.setVisible(true);
             }
@@ -58,6 +57,9 @@ public class DangNhap extends javax.swing.JInternalFrame {
     public DangNhap() {
         initComponents();
         setSize(1000, 540);
+        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\FPT_DaoTao\\img\\bg.jpg");
+        pic.setBounds(0, 0, 1000, 700);
+        add(pic);
     }
     
     public void closeDangNhap() {
@@ -137,14 +139,13 @@ public class DangNhap extends javax.swing.JInternalFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         txtUsername_DangNhap = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
         pwdPassword_DangNhap = new javax.swing.JPasswordField();
         btnLogin_DangNhap = new javax.swing.JButton();
         btnCancel_DangNhap = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
 
         setTitle("Login");
         try {
@@ -597,116 +598,113 @@ public class DangNhap extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Đăng Nhập");
 
-        jLabel25.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel25.setText("Password");
+        jLabel24.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Username");
 
         txtUsername_DangNhap.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        txtUsername_DangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsername_DangNhapActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Password");
 
         pwdPassword_DangNhap.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
-        btnLogin_DangNhap.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnLogin_DangNhap.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnLogin_DangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin_DangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.png"))); // NOI18N
         btnLogin_DangNhap.setText("Login");
+        btnLogin_DangNhap.setBorderPainted(false);
+        btnLogin_DangNhap.setContentAreaFilled(false);
         btnLogin_DangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogin_DangNhapActionPerformed(evt);
             }
         });
 
-        btnCancel_DangNhap.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnCancel_DangNhap.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnCancel_DangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel_DangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
-        btnCancel_DangNhap.setText("Cancel");
+        btnCancel_DangNhap.setText("Exit");
+        btnCancel_DangNhap.setBorderPainted(false);
+        btnCancel_DangNhap.setContentAreaFilled(false);
         btnCancel_DangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancel_DangNhapActionPerformed(evt);
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel23.setText("Đăng Nhập");
-
-        jLabel24.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel24.setText("Username");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnLogin_DangNhap)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel_DangNhap))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtUsername_DangNhap)
-                        .addComponent(pwdPassword_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtUsername_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(pwdPassword_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin_DangNhap)
-                    .addComponent(btnCancel_DangNhap))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(357, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLogin_DangNhap)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwdPassword_DangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel23))
+                    .addComponent(txtUsername_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(346, 346, 346))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 505, Short.MAX_VALUE)
+                    .addGap(0, 492, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 505, Short.MAX_VALUE)))
+                    .addGap(0, 492, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(505, Short.MAX_VALUE)
+                    .addContainerGap(492, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(505, Short.MAX_VALUE)))
+                    .addContainerGap(492, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(122, 122, 122)
+                .addComponent(jLabel23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUsername_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdPassword_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin_DangNhap)
+                    .addComponent(btnCancel_DangNhap))
+                .addContainerGap(277, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 259, Short.MAX_VALUE)
+                    .addGap(0, 285, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 259, Short.MAX_VALUE)))
+                    .addGap(0, 285, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(518, Short.MAX_VALUE)
+                    .addContainerGap(570, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -714,25 +712,29 @@ public class DangNhap extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtUsername_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsername_DangNhapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsername_DangNhapActionPerformed
+
     private void btnCancel_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel_DangNhapActionPerformed
+        // TODO add your handling code here:
         this.hide();
     }//GEN-LAST:event_btnCancel_DangNhapActionPerformed
-    
+
     private void btnLogin_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin_DangNhapActionPerformed
-        // TODO add your handling code here:
         try {
-            ketnoi();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
+            try {
+                // TODO add your handling code here:
+                ketnoi();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+            }
             taidulieu();
         } catch (SQLException ex) {
             Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLogin_DangNhapActionPerformed
-
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -779,7 +781,6 @@ public class DangNhap extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
