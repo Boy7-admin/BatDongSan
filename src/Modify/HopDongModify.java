@@ -5,6 +5,7 @@
  */
 package Modify;
 
+import Data.HopDong;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,11 +74,11 @@ public class HopDongModify {
             ketNoi.con.close();
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void update(Data.HopDong hd) {
+    public static void update(HopDong hd, String ma) {
         try {
             ketNoi = new KetNoi();
             ketNoi.ketnoi();
@@ -85,7 +86,7 @@ public class HopDongModify {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            String sql = "update HopDong set MaHD = ?, TenHD = ?, MaNV = ?, MaKH = ?, MaBDS = ?, NgayTao = ?";
+            String sql = "update HopDong set MaHD = ?, TenHD = ?, MaNV = ?, MaKH = ?, MaBDS = ?, NgayTao = ? where MaHD = ?";
             PreparedStatement statement = ketNoi.con.prepareCall(sql);
             statement.setString(1, hd.getMa());
             statement.setString(2, hd.getTen());
@@ -93,12 +94,12 @@ public class HopDongModify {
             statement.setString(4, hd.getMakh());
             statement.setString(5, hd.getMabds());
             statement.setString(6, hd.getNgaytao());
-            statement.setString(7, hd.getMa());
+            statement.setString(7, ma);
             statement.executeUpdate();
             ketNoi.con.close();
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

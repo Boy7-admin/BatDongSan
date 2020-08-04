@@ -7,14 +7,11 @@ package phanmenquanlybatdongsan;
 
 import Data.BatDongSan;
 import Data.PicPanel;
+import Modify.BatDongSanModify;
 import Modify.KetNoi;
 import java.awt.HeadlessException;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,6 +36,9 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         add(pic);
         model = (DefaultTableModel) tbl_BatDongSan.getModel();
         fill();
+        btnSua_BatDongSan.setEnabled(false);
+        btnXoa_BatDongSan.setEnabled(false);
+                
     }
 
     private void fill() {
@@ -62,22 +62,18 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         cboLoai_BatDongSan.setSelectedIndex(0);
         txtMoTa_BatDongSan.setText("");
         cboTrangThai_BatDongSan.setSelectedIndex(0);
+        txtMa_BatDongSan.setEditable(true);
+        btnThem_BatDongSan.setEnabled(true);
+        btnSua_BatDongSan.setEnabled(false);
+        btnXoa_BatDongSan.setEnabled(false);
     }
 
     public boolean check() {
-        
+
         if (txtMa_BatDongSan.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Chua nhap Ma");
             txtMa_BatDongSan.requestFocus();
             return false;
-        }
-        for (int i = 0; i < listBDS.size(); i++) {
-            if (txtMa_BatDongSan.getText().equalsIgnoreCase(listBDS.get(i).getMa())) {
-                JOptionPane.showMessageDialog(this, "Ma BDS da duoc su dung");
-                txtMa_BatDongSan.setText("");
-                txtMa_BatDongSan.requestFocus();
-                return false;
-            }
         }
         if (txtTen_BatDongSan.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Chua nhap ten");
@@ -89,8 +85,14 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
             txtGia_BatDongSan.requestFocus();
             return false;
         }
+        if (txtGia_BatDongSan.getText().length() > 17) {
+            JOptionPane.showMessageDialog(this, "Gia BDS qua cao");
+            txtGia_BatDongSan.setText("");
+            txtGia_BatDongSan.requestFocus();
+            return false;
+        }
         try {
-            double price = Double.parseDouble(txtGia_BatDongSan.getText());
+            Double.parseDouble(txtGia_BatDongSan.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Gia khong dung dinh dang");
             txtGia_BatDongSan.setText("");
@@ -110,17 +112,35 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         return true;
     }
 
+    public boolean checkDup() {
+        for (int i = 0; i < listBDS.size(); i++) {
+            if (txtMa_BatDongSan.getText().equalsIgnoreCase(listBDS.get(i).getMa())) {
+                JOptionPane.showMessageDialog(this, "Ma BDS da duoc su dung");
+                txtMa_BatDongSan.setText("");
+                txtMa_BatDongSan.requestFocus();
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void them() {
-        if (check()) {
-            Data.BatDongSan batDongSan = new Data.BatDongSan(txtMa_BatDongSan.getText(),
-                    txtTen_BatDongSan.getText(),
-                    Double.parseDouble(txtGia_BatDongSan.getText()),
-                    txtDiaChi_BatDongSan.getText(),
-                    cboLoai_BatDongSan.getSelectedItem().toString(),
-                    txtMoTa_BatDongSan.getText(),
-                    cboTrangThai_BatDongSan.getSelectedItem().toString());
-            Modify.BatDongSanModify.insert(batDongSan);
-            fill();
+        if (check() && checkDup()) {
+            try {
+                BatDongSan batDongSan = new BatDongSan(txtMa_BatDongSan.getText(),
+                        txtTen_BatDongSan.getText(),
+                        txtGia_BatDongSan.getText(),
+                        txtDiaChi_BatDongSan.getText(),
+                        cboLoai_BatDongSan.getSelectedItem().toString(),
+                        txtMoTa_BatDongSan.getText(),
+                        cboTrangThai_BatDongSan.getSelectedItem().toString());
+                listBDS.add(batDongSan);
+                Modify.BatDongSanModify.insert(batDongSan);
+                fill();
+                JOptionPane.showMessageDialog(this, "Da them BDS");
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
         }
     }
 
@@ -135,108 +155,51 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
             cboLoai_BatDongSan.setSelectedItem(bds.getLoai());
             txtMoTa_BatDongSan.setText(bds.getMota());
             cboTrangThai_BatDongSan.setSelectedItem(bds.getTrangthai());
+            txtMa_BatDongSan.setEditable(false);
+            btnThem_BatDongSan.setEnabled(false);
+            btnSua_BatDongSan.setEnabled(true);
+            btnXoa_BatDongSan.setEnabled(true);
         }
     }
 
     public void xoa() {
-        try {
-            String macanxoa = JOptionPane.showInputDialog(this, "Nhap ma BDS can xoa: ");
-            int a = 0;
-            for (int i = 0; i <= listBDS.size(); i++) {
-                if (macanxoa.equalsIgnoreCase(listBDS.get(i).getMa())) {
-                    a++;
-                    int option = JOptionPane.showConfirmDialog(this, "Xoa BDS co ma: " + macanxoa);
-                    switch (option) {
-                        case 0:
-                            Modify.BatDongSanModify.delete(macanxoa);
-                            fill();
-                            moi();
-                            return;
-                        case 1:
-                            return;
-                        case 2:
-                            return;
-                        default:
-                            break;
-                    }
-                }
+        int i = tbl_BatDongSan.getSelectedRow();
+        if (i >= 0) {
+            String ma = listBDS.get(i).getMa();
+            try {
+                BatDongSanModify.delete(ma);
+                fill();
+                moi();
+                JOptionPane.showMessageDialog(this, "Da xoa BDS");
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(this, e);
             }
-            if (a == 0) {
-                JOptionPane.showMessageDialog(this, "Khong tim thay BDS co ma: " + macanxoa);
-            }
-        } catch (java.lang.NullPointerException e) {
-
+        } else {
+            JOptionPane.showMessageDialog(this, "Chon BDS can xoa");
         }
     }
-
     KetNoi ketnoi;
-    
+
     public void sua() {
-        ketnoi = new KetNoi();
-        try {
-            ketnoi.ketnoi();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(QuanLyBatDongSan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            int i = tbl_BatDongSan.getSelectedRow();
-            listBDS.remove(i);
-            BatDongSan batDongSan = new BatDongSan(
-                    (String) tbl_BatDongSan.getValueAt(i, 0),
-                    (String) tbl_BatDongSan.getValueAt(i, 1),
-                    (Double) tbl_BatDongSan.getValueAt(i, 2),
-                    (String) tbl_BatDongSan.getValueAt(i, 3),
-                    (String) tbl_BatDongSan.getValueAt(i, 4),
-                    (String) tbl_BatDongSan.getValueAt(i, 5),
-                    (String) tbl_BatDongSan.getValueAt(i, 6));
+        int i = tbl_BatDongSan.getSelectedRow();
+        if (i >= 0) {
+            BatDongSan batDongSan = listBDS.get(i);
+            String ma = batDongSan.getMa();
             if (check()) {
-                String ma = txtMa_BatDongSan.getText();
-                String ten = txtTen_BatDongSan.getText();
-                String gia = txtGia_BatDongSan.getText();
-                String diachi = txtDiaChi_BatDongSan.getText();
-                String loai = (String) cboLoai_BatDongSan.getSelectedItem();
-                String mota = txtMoTa_BatDongSan.getText();
-                String trangthai = (String) cboTrangThai_BatDongSan.getSelectedItem();
-                listBDS.add(i, new BatDongSan(ma, ten, i, diachi, loai, mota, trangthai));
-                String sql = "UPDATE BatDongSan " + "SET MaBDS = N'"+ma.trim()+"',TenBDS = N'"+ten.trim()+"',GiaBDS ='"+gia.trim()+"',DiaChiBDS = N'"+diachi.trim()+"',LoaiBDS = N'"+loai.trim()+"',MoTaBDS = N'"+mota.trim()+"',TrangThai = N'"+trangthai.trim()+"'";
-                Statement statement = ketnoi.con.createStatement();
-                int a = statement.executeUpdate(sql);
-                model.setValueAt(txtMa_BatDongSan.getText(), i, 0);
-                model.setValueAt(txtTen_BatDongSan.getText(), i, 1);
-                model.setValueAt(txtGia_BatDongSan.getText(), i, 2);
-                model.setValueAt(txtDiaChi_BatDongSan.getText(), i, 3);
-                model.setValueAt(cboLoai_BatDongSan.getSelectedItem(), i, 4);
-                model.setValueAt(txtMoTa_BatDongSan, i, 5);
-                model.setValueAt(cboTrangThai_BatDongSan.getSelectedItem(), i, 6);
-                JOptionPane.showMessageDialog(this, "Sua thanh cong");
-            } else {
-                listBDS.add(i, batDongSan);
+                batDongSan.setTen(txtTen_BatDongSan.getText());
+                batDongSan.setGia(txtGia_BatDongSan.getText());
+                batDongSan.setDiachi(txtDiaChi_BatDongSan.getText());
+                batDongSan.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
+                batDongSan.setMota(txtMoTa_BatDongSan.getText());
+                batDongSan.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
+                BatDongSanModify.update(batDongSan, ma);
+                fill();
+                JOptionPane.showMessageDialog(this, "Da cap nhat du lieu");
+                tbl_BatDongSan.setRowSelectionInterval(i, i);
             }
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
+        } else {
+            JOptionPane.showMessageDialog(this, "Chon BDS can sua");
         }
-//        int i = tbl_BatDongSan.getSelectedRow();
-//        if (i >= 0) {
-//            if (check()) {
-//                BatDongSan bds = listBDS.get(i);
-//                try {
-//                    bds.setMa(txtMa_BatDongSan.getText());
-//                    bds.setTen(txtTen_BatDongSan.getText());
-//                    bds.setGia(Double.parseDouble(txtGia_BatDongSan.getText()));
-//                    bds.setDiachi(txtDiaChi_BatDongSan.getText());
-//                    bds.setLoai((String) cboLoai_BatDongSan.getSelectedItem());
-//                    bds.setMota(txtMoTa_BatDongSan.getText());
-//                    bds.setTrangthai((String) cboTrangThai_BatDongSan.getSelectedItem());
-//                    Modify.BatDongSanModify.update(bds);
-//                    fill();
-//                    JOptionPane.showMessageDialog(this, "Cap nhat du lieu thanh cong");
-//                } catch (HeadlessException | NumberFormatException e) {
-//                    JOptionPane.showMessageDialog(this, e);
-//                }
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Chon Bat Dong San can sua");
-//        }
     }
 
     /**

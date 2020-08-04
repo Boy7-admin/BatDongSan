@@ -13,7 +13,7 @@ public class BatDongSan {
 
     private String ma;
     private String ten;
-    private double gia;
+    private String gia;
     private String diachi;
     private String loai;
     private String mota;
@@ -22,7 +22,7 @@ public class BatDongSan {
     public BatDongSan() {
     }
 
-    public BatDongSan(String ma, String ten, double gia, String diachi, String loai, String mota, String trangthai) {
+    public BatDongSan(String ma, String ten, String gia, String diachi, String loai, String mota, String trangthai) {
         this.ma = ma;
         this.ten = ten;
         this.gia = gia;
@@ -48,11 +48,11 @@ public class BatDongSan {
         this.ten = ten;
     }
 
-    public double getGia() {
+    public String getGia() {
         return gia;
     }
 
-    public void setGia(double gia) {
+    public void setGia(String gia) {
         this.gia = gia;
     }
 

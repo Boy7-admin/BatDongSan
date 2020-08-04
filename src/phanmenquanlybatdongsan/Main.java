@@ -72,6 +72,7 @@ public class Main extends javax.swing.JFrame{
 
         mLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.png"))); // NOI18N
         mLogin.setText("Đăng Nhập");
+        mLogin.setBorderPainted(false);
         mLogin.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         mLogin.setMargin(new java.awt.Insets(2, 5, 2, 5));
         mLogin.addMouseListener(new java.awt.event.MouseAdapter() {

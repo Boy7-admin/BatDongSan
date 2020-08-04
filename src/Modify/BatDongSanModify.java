@@ -40,14 +40,14 @@ public class BatDongSanModify {
                 while (resultSet.next()) {
                     Data.BatDongSan batDongSan = new Data.BatDongSan(resultSet.getString("MaBDS"),
                             resultSet.getString("TenBDS"),
-                            resultSet.getDouble("GiaBDS"),
+                            resultSet.getString("GiaBDS"),
                             resultSet.getString("DiaChiBDS"),
                             resultSet.getString("LoaiBDS"),
                             resultSet.getString("MotaBDS"),
                             resultSet.getString("TrangThai"));
                     bdslist.add(batDongSan);
                 }
-//                ketNoi.con.close();
+                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +73,7 @@ public class BatDongSanModify {
                 statement.setString(6, bds.getMota());
                 statement.setString(7, bds.getTrangthai());
                 statement.execute();
-//                ketNoi.con.close();
+                ketNoi.con.close();
             }
         } catch (SQLException ex) {
 //            System.out.println("Loi chuyen doi gia: " + ex);
@@ -99,7 +99,7 @@ public class BatDongSanModify {
                 statement.setString(7, bds.getTrangthai());
                 statement.setString(8, bds1);
                 statement.executeUpdate();
-//                ketNoi.con.close();
+                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,7 +118,7 @@ public class BatDongSanModify {
             try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
                 statement.setString(1, ma);
                 statement.execute();
-//                ketNoi.con.close();
+                ketNoi.con.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
