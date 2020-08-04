@@ -516,8 +516,10 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                         "VALUES ('"+maKH.trim()+"',N'"+hoTen.trim()+"','"+ngaySinh.trim()+"',N'"+gt.trim()+"','"+SDT.trim()+"','"+CMND.trim()+"','"+Email.trim()+"')";
                 Statement stt = ketnoi.con.createStatement();
                 int rs = stt.executeUpdate(sql);
+                listKH.add(new KhachHang(maKH, hoTen, ngaySinh, gt, SDT, CMND, Email));
                 myModel.addRow(new Object[] {maKH, hoTen, ngaySinh, gt, SDT,CMND,Email}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
+                moi();
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
@@ -550,7 +552,9 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                     "Where MaKH = '"+txtMa_Khachhang.getText().trim()+"'";
             Statement stt = ketnoi.con.createStatement();
             int rs = stt.executeUpdate(sql);
+            listKH.remove(i);
             myModel.removeRow(i);
+            moi();
             JOptionPane.showMessageDialog(this, "Đã Xóa");
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Không Thể Xóa Khách Hàng Này !");

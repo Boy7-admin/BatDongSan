@@ -530,7 +530,9 @@ public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
             Statement stt = ketnoi.con.createStatement();
             int rs = stt.executeUpdate(sql);
             myModel.removeRow(index);
+            list_NhanVien.remove(index);
             JOptionPane.showMessageDialog(this, "Đã Xóa");
+            clearForm();
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Không Thể Xóa Nhân Viên Này !");
                 System.out.println(e);
@@ -677,8 +679,10 @@ public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
                     " VALUES ('"+maNV.trim()+"',N'"+tenNV.trim()+"','"+ngaysinhNV.trim() +"',N'"+gioitinhNV.trim()+"','"+sdtNV.trim()+"','"+cmndNV+"','"+emailNV.trim()+"',N'"+chucvuNV.trim()+"','"+luongNV.trim()+"','"+usernameNV.trim()+"','"+passwordNV.trim()+"')"; 
                 Statement stt = ketnoi.con.createStatement();
                 int rs = stt.executeUpdate(sql);
+                list_NhanVien.add(new NhanVien(maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV, emailNV, chucvuNV, Double.parseDouble(luongNV), usernameNV, passwordNV));
                 myModel.addRow(new Object[] {maNV, tenNV, ngaysinhNV, gioitinhNV, sdtNV, cmndNV,emailNV,chucvuNV,luongNV,usernameNV,passwordNV}); 
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
+                clearForm();
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-MM-dd");
             }
@@ -689,6 +693,8 @@ public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
     public void sua() throws SQLException {
         try {
            int row = tbl_NhanVien.getSelectedRow();
+           System.out.println(row);
+            System.out.println(list_NhanVien.size());
            list_NhanVien.remove(row);
            String gioitinhNV;
            if(rdoNam_NhanVien.isSelected()) {
@@ -732,6 +738,7 @@ public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
                 myModel.setValueAt(txtPassword_NhanVien.getText(), row, 10);
                 clearForm();
                 JOptionPane.showMessageDialog(this, "Đã sửa");
+                clearForm();
            }
            else{
                list_NhanVien.add(row,x);
