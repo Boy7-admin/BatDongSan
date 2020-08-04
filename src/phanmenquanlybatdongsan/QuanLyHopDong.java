@@ -81,6 +81,20 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
 
     public boolean check() {
 
+        qlnv = new QuanLyNhanVien();
+        ArrayList<NhanVien> listNV = qlnv.list_NhanVien;
+
+        try {
+            qlkh = new QuanLyKhachHang();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyHopDong.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        ArrayList<KhachHang> listKH = qlkh.listKH;
+
+        qlbds = new QuanLyBatDongSan();
+        List<BatDongSan> listBDS = qlbds.listBDS;
+
         if (txtMaHD_HopDong.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Chua nhap ma hop dong");
             txtMaHD_HopDong.requestFocus();
@@ -96,13 +110,50 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
             txtMaNV_HopDong.requestFocus();
             return false;
         }
+        int a = 0;
+        for (int i = 0; i < listNV.size(); i++) {
+            if (listNV.get(i).getMa().equalsIgnoreCase(txtMaNV_HopDong.getText())) {
+                a++;
+            }
+        }
+        if (a == 0) {
+            JOptionPane.showMessageDialog(qlnv, "Ma nhan vien khong ton tai");
+            System.out.println(listNV.size());
+            txtMaNV_HopDong.setText("");
+            txtMaNV_HopDong.requestFocus();
+            return false;
+        }
         if (txtMaKH_HopDong.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Chua nhap ma khach hang");
             txtMaKH_HopDong.requestFocus();
             return false;
         }
+        int b = 0;
+        for (int i = 0; i < listKH.size(); i++) {
+            if (listKH.get(i).getMakh().equalsIgnoreCase(txtMaKH_HopDong.getText())) {
+                b++;
+            }
+        }
+        if (b == 0) {
+            JOptionPane.showMessageDialog(qlkh, "Ma khach hang khong ton tai");
+            txtMaKH_HopDong.setText("");
+            txtMaKH_HopDong.requestFocus();
+            return false;
+        }
         if (txtMaBDS_HopDong.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Chua nhap ma bat dong san");
+            txtMaBDS_HopDong.requestFocus();
+            return false;
+        }
+        int c = 0;
+        for (int i = 0; i < listBDS.size(); i++) {
+            if (listBDS.get(i).getMa().equalsIgnoreCase(txtMaBDS_HopDong.getText())) {
+                c++;
+            }
+        }
+        if (c == 0) {
+            JOptionPane.showMessageDialog(qlbds, "Ma bat dong san khong ton tai");
+            txtMaBDS_HopDong.setText("");
             txtMaBDS_HopDong.requestFocus();
             return false;
         }
@@ -124,20 +175,6 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
     }
 
     public boolean checkDup() {
-        qlnv = new QuanLyNhanVien();
-        ArrayList<NhanVien> listNV = qlnv.list_NhanVien;
-
-        try {
-            qlkh = new QuanLyKhachHang();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(QuanLyHopDong.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        ArrayList<KhachHang> listKH = qlkh.listKH;
-
-        qlbds = new QuanLyBatDongSan();
-        List<BatDongSan> listBDS = qlbds.listBDS;
-
         for (int i = 0; i < tbl_HopDong.getRowCount(); i++) {
             String ma = (String) tbl_HopDong.getValueAt(i, 0);
             if (txtMaHD_HopDong.getText().equals(ma)) {
@@ -281,20 +318,23 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
 
     public void sua() {
         int i = tbl_HopDong.getSelectedRow();
+        HopDong hopDong1 = listHD.get(i);
+        String temp = hopDong1.getTen() + hopDong1.getManv() + hopDong1.getMakh() + hopDong1.getNgaytao();
         if (i >= 0) {
             HopDong hopDong = listHD.get(i);
-            HopDong hopDong1 = listHD.get(i);
             String ma = hopDong.getMa();
             if (check()) {
                 hopDong.setTen(txtTenHD_HopDong.getText());
                 hopDong.setManv(txtMaNV_HopDong.getText());
                 hopDong.setMakh(txtMaKH_HopDong.getText());
                 hopDong.setNgaytao(txtNgayTao_HopDong.getText());
+                String temp1 = hopDong.getTen() + hopDong.getManv() + hopDong.getMakh() + hopDong.getNgaytao();
                 HopDongModify.update(hopDong, ma);
                 fill();
-                if (hopDong != hopDong1) {
+                System.out.println(temp + "\n" + temp1);
+                if (!temp.equals(temp1)) {
                     JOptionPane.showMessageDialog(this, "Da cap nhat du lieu");
-                } else if (hopDong == hopDong1) {
+                } else if (temp.equals(temp1)) {
                     JOptionPane.showMessageDialog(this, "Hop dong khong bi thay doi");
                 } else {
                     JOptionPane.showMessageDialog(this, "Loi ngay tao hop dong");

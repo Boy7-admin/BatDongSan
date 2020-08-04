@@ -86,20 +86,18 @@ public class HopDongModify {
             Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            String sql = "update HopDong set MaHD = ?, TenHD = ?, MaNV = ?, MaKH = ?, MaBDS = ?, NgayTao = ? where MaHD = ?";
-            PreparedStatement statement = ketNoi.con.prepareCall(sql);
-            statement.setString(1, hd.getMa());
-            statement.setString(2, hd.getTen());
-            statement.setString(3, hd.getManv());
-            statement.setString(4, hd.getMakh());
-            statement.setString(5, hd.getMabds());
-            statement.setString(6, hd.getNgaytao());
-            statement.setString(7, ma);
-            statement.executeUpdate();
-            ketNoi.con.close();
-            statement.close();
+            String sql = "update HopDong set TenHD = ?, MaNV = ?, MaKH = ?, NgayTaoHD = ? where MaHD = ?";
+            try (PreparedStatement statement = ketNoi.con.prepareCall(sql)) {
+                statement.setString(1, hd.getTen());
+                statement.setString(2, hd.getManv());
+                statement.setString(3, hd.getMakh());
+                statement.setString(4, hd.getNgaytao());
+                statement.setString(5, ma);
+                statement.executeUpdate();
+                ketNoi.con.close();
+            }
         } catch (SQLException ex) {
-//            Logger.getLogger(HopDongModify.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Loi ngay tao");
         }
     }
 
