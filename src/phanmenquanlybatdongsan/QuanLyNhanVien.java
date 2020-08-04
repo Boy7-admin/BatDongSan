@@ -34,7 +34,7 @@ public final class QuanLyNhanVien extends javax.swing.JInternalFrame {
     public QuanLyNhanVien() {
         initComponents();
         setSize(1000, 540);
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         add(pic);
         btnThem_NhanVien.setEnabled(true);

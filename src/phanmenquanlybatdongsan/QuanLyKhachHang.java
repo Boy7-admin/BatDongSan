@@ -36,7 +36,7 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
     public QuanLyKhachHang() throws ClassNotFoundException {
         initComponents();
         setSize(1000, 540);
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         add(pic);
         rdoNam_Khachhang.setSelected(true);

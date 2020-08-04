@@ -18,7 +18,7 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         desktop.add(pic);
 //        menuKH.setEnabled(false);
