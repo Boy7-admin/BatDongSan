@@ -50,9 +50,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuBDS">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/HopDong-removebg-preview.png"/>
+                  <Image iconType="3" name="/img/BatDongSan-removebg-preview.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; b&#x1ea5;t &#x111;&#x1ed9;ng s&#x1ea3;n"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; B&#x1ea5;t &#x110;&#x1ed9;ng S&#x1ea3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBDSActionPerformed"/>

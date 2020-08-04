@@ -31,7 +31,7 @@ public final class ThongKe1 extends javax.swing.JInternalFrame {
         initComponents();
         setSize(1000, 540);
         setTitle("Thống Kê");
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\FPT_DaoTao\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         add(pic);
         try {

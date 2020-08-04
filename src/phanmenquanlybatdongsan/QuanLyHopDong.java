@@ -38,7 +38,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
     public QuanLyHopDong() {
         initComponents();
         setSize(1000, 540);
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\FPT_DaoTao\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         add(pic);
         model = (DefaultTableModel) tbl_HopDong.getModel();
@@ -452,7 +452,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
                 .addComponent(btnMoi_HopDong)
                 .addGap(18, 18, 18)
                 .addComponent(btnThoat_HopDong)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         tbl_HopDong.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -511,8 +511,8 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         pack();

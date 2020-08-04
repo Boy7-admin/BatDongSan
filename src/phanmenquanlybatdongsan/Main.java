@@ -18,7 +18,7 @@ public class Main extends javax.swing.JFrame{
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\FPT_DaoTao\\img\\bg.jpg");
+        PicPanel pic = new PicPanel("C:\\Users\\admin\\Desktop\\BatDongSan\\img\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         desktop.add(pic);
 //        menuKH.setEnabled(false);
@@ -99,8 +99,8 @@ public class Main extends javax.swing.JFrame{
         });
         jMenu1.add(menuNV);
 
-        menuBDS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/HopDong-removebg-preview.png"))); // NOI18N
-        menuBDS.setText("Quản lý bất động sản");
+        menuBDS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BatDongSan-removebg-preview.png"))); // NOI18N
+        menuBDS.setText("Quản Lý Bất Động Sản");
         menuBDS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuBDSActionPerformed(evt);
