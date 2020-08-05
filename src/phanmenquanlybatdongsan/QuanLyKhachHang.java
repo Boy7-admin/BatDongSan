@@ -78,7 +78,6 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         rdoNam_Khachhang = new javax.swing.JRadioButton();
         rdoNu_Khachhang = new javax.swing.JRadioButton();
-        txtNgaySinh_Khachhang = new javax.swing.JTextField();
         txtHoTen_Khachhang = new javax.swing.JTextField();
         txtMa_Khachhang = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -87,6 +86,7 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
         txtSoDT_Khachhang = new javax.swing.JTextField();
         txtCMND_Khachhang = new javax.swing.JTextField();
         txtEmail_Khachhang = new javax.swing.JTextField();
+        txtNgaySinh_Khachhang = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         btnThoat_Khachhang = new javax.swing.JButton();
         btnMoi_Khachhang = new javax.swing.JButton();
@@ -120,8 +120,6 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
         rdoNu_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         rdoNu_Khachhang.setText("Nữ");
-
-        txtNgaySinh_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         txtHoTen_Khachhang.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
@@ -159,7 +157,7 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtHoTen_Khachhang, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                             .addComponent(txtMa_Khachhang)
-                            .addComponent(txtNgaySinh_Khachhang))
+                            .addComponent(txtNgaySinh_Khachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -178,16 +176,14 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                         .addComponent(rdoNam_Khachhang)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdoNu_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNgaySinh_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,9 +199,11 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                                     .addComponent(txtMa_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(27, 27, 27)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(txtEmail_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtEmail_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNgaySinh_Khachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(txtSoDT_Khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,18 +426,6 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
             txtHoTen_Khachhang.requestFocus(true);
             return false;
         }
-        if(txtNgaySinh_Khachhang.getText().length() == 0){
-            JOptionPane.showMessageDialog(this, "Hãy điền ngày sinh khách hàng !");
-            txtNgaySinh_Khachhang.requestFocus(true);
-            return false;
-        }
-        Date date = null;
-        try {
-           date = new SimpleDateFormat("dd-MM-yyyy").parse(txtNgaySinh_Khachhang.getText());
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng đính dạng yyyy-MM-dd");
-            return false;
-        }
         //Check Số điện thoại
         if(txtSoDT_Khachhang.getText().length() == 0){
             JOptionPane.showMessageDialog(this, "Hãy điền số điện thoại khách hàng !");
@@ -507,7 +493,8 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
             else{gt = "Nữ";}
             String maKH = txtMa_Khachhang.getText();
             String hoTen = txtHoTen_Khachhang.getText();
-            String ngaySinh = txtNgaySinh_Khachhang.getText();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String ngaySinh = sdf.format(txtNgaySinh_Khachhang.getDate());
             String SDT = txtSoDT_Khachhang.getText();
             String CMND = txtCMND_Khachhang.getText();
             String Email = txtEmail_Khachhang.getText();
@@ -534,7 +521,11 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
         tbl_Khachhang.clearSelection();
         txtMa_Khachhang.setText("");
         txtHoTen_Khachhang.setText("");
-        txtNgaySinh_Khachhang.setText("");
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-10");
+            txtNgaySinh_Khachhang.setDate(date);
+        } catch (Exception e) {
+        }
         rdoNam_Khachhang.setSelected(true);
         txtSoDT_Khachhang.setText("");
         txtEmail_Khachhang.setText("");
@@ -566,17 +557,19 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
     public void update() {
         try {
            int row = tbl_Khachhang.getSelectedRow();
+           KhachHang x = listKH.get(row);
            listKH.remove(row);
            String gioitinhKH;
            if(rdoNam_Khachhang.isSelected()) {
                     gioitinhKH = "Nam";
                 }
                 else{gioitinhKH = "Nữ";}
-            KhachHang x = new KhachHang((String)tbl_Khachhang.getValueAt(row, 0), (String)tbl_Khachhang.getValueAt(row, 1), (String)tbl_Khachhang.getValueAt(row, 2), gioitinhKH, (String)tbl_Khachhang.getValueAt(row, 4), (String)tbl_Khachhang.getValueAt(row, 5), (String)tbl_Khachhang.getValueAt(row, 6));
+//            KhachHang x = new KhachHang((String)tbl_Khachhang.getValueAt(row, 0), (String)tbl_Khachhang.getValueAt(row, 1), (String)tbl_Khachhang.getValueAt(row, 2), gioitinhKH, (String)tbl_Khachhang.getValueAt(row, 4), (String)tbl_Khachhang.getValueAt(row, 5), (String)tbl_Khachhang.getValueAt(row, 6));
            if(check()){
                 String maKH = txtMa_Khachhang.getText();
                 String tenKH = txtHoTen_Khachhang.getText();
-                String ngaysinhKH = txtNgaySinh_Khachhang.getText();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String ngaysinhKH = sdf.format(txtNgaySinh_Khachhang.getDate());
                 if(rdoNam_Khachhang.isSelected()) {
                     gioitinhKH = "Nam";
                 }
@@ -594,7 +587,7 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
                 
                 myModel.setValueAt(txtMa_Khachhang.getText(), row, 0);
                 myModel.setValueAt(txtHoTen_Khachhang.getText(), row, 1);
-                myModel.setValueAt(txtNgaySinh_Khachhang.getText(), row, 2);
+                myModel.setValueAt(ngaysinhKH, row, 2);
                 myModel.setValueAt(gioitinhKH, row, 3);
                 myModel.setValueAt(txtSoDT_Khachhang.getText(), row, 4);
                 myModel.setValueAt(txtCMND_Khachhang.getText(), row, 5);
@@ -614,7 +607,11 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
         index = tbl_Khachhang.getSelectedRow();
         txtMa_Khachhang.setText((String)myModel.getValueAt(index, 0));
         txtHoTen_Khachhang.setText((String)myModel.getValueAt(index, 1));
-        txtNgaySinh_Khachhang.setText((String)myModel.getValueAt(index, 2));
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse((String)myModel.getValueAt(index, 2));
+            txtNgaySinh_Khachhang.setDate(date);
+        } catch (Exception e) {
+        }
         txtSoDT_Khachhang.setText((String)myModel.getValueAt(index, 4));
         txtCMND_Khachhang.setText((String)myModel.getValueAt(index, 5));
         txtEmail_Khachhang.setText((String)myModel.getValueAt(index, 6));
@@ -656,7 +653,7 @@ public final class QuanLyKhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEmail_Khachhang;
     private javax.swing.JTextField txtHoTen_Khachhang;
     private javax.swing.JTextField txtMa_Khachhang;
-    private javax.swing.JTextField txtNgaySinh_Khachhang;
+    private com.toedter.calendar.JDateChooser txtNgaySinh_Khachhang;
     private javax.swing.JTextField txtSoDT_Khachhang;
     // End of variables declaration//GEN-END:variables
 }
