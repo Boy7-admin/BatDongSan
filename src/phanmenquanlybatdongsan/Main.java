@@ -21,11 +21,11 @@ public class Main extends javax.swing.JFrame{
         PicPanel pic = new PicPanel("C:\\bg.jpg");
         pic.setBounds(0, 0, 1000, 700);
         desktop.add(pic);
-//        menuKH.setEnabled(false);
-//        menuHD.setEnabled(false);
-//        menuBDS.setEnabled(false);
-//        menuNV.setEnabled(false);
-//        menuTK.setEnabled(false);
+        menuKH.setEnabled(false);
+        menuHD.setEnabled(false);
+        menuBDS.setEnabled(false);
+        menuNV.setEnabled(false);
+        menuTK.setEnabled(false);
     }
 
     public void openMain() {
