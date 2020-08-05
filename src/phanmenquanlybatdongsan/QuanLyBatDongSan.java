@@ -38,7 +38,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         fill();
         btnSua_BatDongSan.setEnabled(false);
         btnXoa_BatDongSan.setEnabled(false);
-                
+
     }
 
     private void fill() {
@@ -163,14 +163,20 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
     }
 
     public void xoa() {
+        int a = listBDS.size();
         int i = tbl_BatDongSan.getSelectedRow();
         if (i >= 0) {
             String ma = listBDS.get(i).getMa();
             try {
                 BatDongSanModify.delete(ma);
-                fill();
-                moi();
-                JOptionPane.showMessageDialog(this, "Da xoa BDS");
+                if (listBDS.size() == a) {
+                    JOptionPane.showMessageDialog(this, "Bat dong san nay dang duoc su dung");
+                    tbl_BatDongSan.setRowSelectionInterval(i, i);
+                } else {
+                    fill();
+                    moi();
+                    JOptionPane.showMessageDialog(this, "Da xoa BDS");
+                }
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(this, e);
             }

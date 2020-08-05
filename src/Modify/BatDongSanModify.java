@@ -121,7 +121,7 @@ public class BatDongSanModify {
                 ketNoi.con.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BatDongSanModify.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Loi Khoa ngoai");
         }
     }
 
