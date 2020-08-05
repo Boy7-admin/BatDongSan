@@ -259,6 +259,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
         int i = listHD.size();
         if (check() && checkDup() && checkNull()) {
             try {
+                txtNgayTao_HopDong.setText(String.valueOf(java.time.LocalDate.now()));
                 Data.HopDong hopDong = new Data.HopDong(txtMaHD_HopDong.getText(),
                         txtTenHD_HopDong.getText(),
                         txtMaNV_HopDong.getText(),
@@ -327,6 +328,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
                 hopDong.setTen(txtTenHD_HopDong.getText());
                 hopDong.setManv(txtMaNV_HopDong.getText());
                 hopDong.setMakh(txtMaKH_HopDong.getText());
+                txtNgayTao_HopDong.setText(String.valueOf(java.time.LocalDate.now()));
                 hopDong.setNgaytao(txtNgayTao_HopDong.getText());
                 String temp1 = hopDong.getTen() + hopDong.getManv() + hopDong.getMakh() + hopDong.getNgaytao();
                 HopDongModify.update(hopDong, ma);
@@ -414,6 +416,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
 
         txtMaBDS_HopDong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        txtNgayTao_HopDong.setEditable(false);
         txtNgayTao_HopDong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
