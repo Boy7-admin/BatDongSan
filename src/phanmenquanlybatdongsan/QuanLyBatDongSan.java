@@ -168,6 +168,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
         if (i >= 0) {
             String ma = listBDS.get(i).getMa();
             try {
+                listBDS.remove(i);
                 BatDongSanModify.delete(ma);
                 if (listBDS.size() == a) {
                     JOptionPane.showMessageDialog(this, "Bat dong san nay dang duoc su dung");
